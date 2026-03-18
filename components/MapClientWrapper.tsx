@@ -6,6 +6,7 @@ import type { PickingInfo } from 'deck.gl';
 import type { ArcData, ResourceData } from '@/types';
 import ArcTooltip from './ArcTooltip';
 import SidePanel from './SidePanel';
+import MapLegend from './MapLegend';
 
 // Dynamic import with ssr: false must live in a Client Component
 const MapView = dynamic(() => import('./MapView'), { ssr: false });
@@ -58,6 +59,7 @@ export default function MapClientWrapper() {
       {selectedArc && (
         <SidePanel arc={selectedArc} onClose={() => setSelectedArc(null)} />
       )}
+      <MapLegend />
     </>
   );
 }

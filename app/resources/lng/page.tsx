@@ -6,6 +6,12 @@ export const metadata = {
   title: 'LNG Exports — Aus Export Tracker',
   description:
     "Detailed statistics on Australia's LNG export volumes, revenues, royalties, and corporate tax by destination country.",
+  openGraph: {
+    title: 'LNG Exports — Aus Export Tracker',
+    description:
+      "Detailed statistics on Australia's LNG export volumes, revenues, royalties, and corporate tax by destination country.",
+    type: 'website',
+  },
 };
 
 export default function LngPage() {
