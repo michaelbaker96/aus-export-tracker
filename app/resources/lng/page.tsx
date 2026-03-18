@@ -1,5 +1,5 @@
 import lngData from '@/public/data/lng.json';
-import LngStatPage from '@/components/LngStatPage';
+import ResourceStatPage from '@/components/ResourceStatPage';
 import type { ResourceData } from '@/types';
 
 export const metadata = {
@@ -9,5 +9,5 @@ export const metadata = {
 };
 
 export default function LngPage() {
-  return <LngStatPage data={lngData as ResourceData} />;
+  return <ResourceStatPage data={lngData as ResourceData} accent="#00bfff" />;
 }

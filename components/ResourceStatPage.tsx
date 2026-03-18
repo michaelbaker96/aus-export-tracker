@@ -4,14 +4,30 @@ import { useState, useMemo } from 'react';
 import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
 import type { ResourceData } from '@/types';
 
-const ACCENT = '#00bfff';
 const COUNTRY_COLORS = ['#f97316', '#a855f7', '#ec4899', '#14b8a6', '#eab308', '#84cc16'];
 
 function fmt(n: number): string {
   return n.toLocaleString('en-AU');
 }
 
-function KpiCard({ label, value, sub }: { label: string; value: string; sub?: string }) {
+// "PJ (petajoules)" → "PJ"   |   "million tonnes (Mt)" → "Mt"
+function shortUnit(unitStr: string): string {
+  const match = unitStr.match(/\(([^)]+)\)/);
+  if (match && match[1].length <= 5 && !match[1].includes(' ')) return match[1];
+  return unitStr.split(' ')[0];
+}
+
+function KpiCard({
+  label,
+  value,
+  sub,
+  accent,
+}: {
+  label: string;
+  value: string;
+  sub?: string;
+  accent: string;
+}) {
   return (
     <div
       style={{
@@ -32,7 +48,7 @@ function KpiCard({ label, value, sub }: { label: string; value: string; sub?: st
       >
         {label}
       </div>
-      <div style={{ fontSize: 26, fontWeight: 700, color: ACCENT, lineHeight: 1 }}>{value}</div>
+      <div style={{ fontSize: 26, fontWeight: 700, color: accent, lineHeight: 1 }}>{value}</div>
       {sub && (
         <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 11, marginTop: 6 }}>{sub}</div>
       )}
@@ -60,9 +76,11 @@ interface SankeyLink {
 function SankeyDiagram({
   data,
   rangeYears,
+  accent,
 }: {
   data: ResourceData;
   rangeYears: number;
+  accent: string;
 }) {
   const W = 760;
   const H = 320;
@@ -82,7 +100,6 @@ function SankeyDiagram({
     }
 
     const countries = Object.keys(countryVol).sort((a, b) => countryVol[b] - countryVol[a]);
-
     const nodes: SankeyNode[] = [{ name: 'Australia' }, ...countries.map((c) => ({ name: c }))];
     const links: SankeyLink[] = countries.map((c) => ({
       source: 'Australia',
@@ -111,9 +128,8 @@ function SankeyDiagram({
     <svg
       viewBox={`0 0 ${W} ${H}`}
       style={{ width: '100%', height: 'auto', overflow: 'visible' }}
-      aria-label="Sankey diagram of LNG export flows"
+      aria-label={`Sankey diagram of ${data.displayName} export flows`}
     >
-      {/* Links */}
       {graph.links.map((link, i) => {
         const d = linkPath(link as Parameters<typeof linkPath>[0]);
         const color = COUNTRY_COLORS[i % COUNTRY_COLORS.length];
@@ -129,8 +145,7 @@ function SankeyDiagram({
         );
       })}
 
-      {/* Nodes */}
-      {graph.nodes.map((node, i) => {
+      {graph.nodes.map((node) => {
         const x0 = node.x0 ?? 0;
         const x1 = node.x1 ?? 0;
         const y0 = node.y0 ?? 0;
@@ -138,7 +153,7 @@ function SankeyDiagram({
         const midY = (y0 + y1) / 2;
         const isAustralia = node.name === 'Australia';
         const countryIndex = graph.countries.indexOf(node.name);
-        const color = isAustralia ? ACCENT : COUNTRY_COLORS[countryIndex % COUNTRY_COLORS.length];
+        const color = isAustralia ? accent : COUNTRY_COLORS[countryIndex % COUNTRY_COLORS.length];
 
         return (
           <g key={node.name}>
@@ -161,7 +176,13 @@ function SankeyDiagram({
   );
 }
 
-export default function LngStatPage({ data }: { data: ResourceData }) {
+export default function ResourceStatPage({
+  data,
+  accent,
+}: {
+  data: ResourceData;
+  accent: string;
+}) {
   const maxYears = data.years.length;
   const [rangeYears, setRangeYears] = useState(Math.min(5, maxYears));
 
@@ -173,6 +194,7 @@ export default function LngStatPage({ data }: { data: ResourceData }) {
   const minYear = Math.min(...selectedSlice.map((y) => y.year));
   const maxYear = Math.max(...selectedSlice.map((y) => y.year));
   const yearLabel = rangeYears === 1 ? `${maxYear}` : `${minYear}–${maxYear}`;
+  const unit = shortUnit(data.units.volume);
 
   const kpis = useMemo(() => {
     const selected = new Set(selectedSlice.map((y) => y.year));
@@ -208,7 +230,7 @@ export default function LngStatPage({ data }: { data: ResourceData }) {
         <a
           href="/"
           style={{
-            color: ACCENT,
+            color: accent,
             textDecoration: 'none',
             fontSize: 13,
             display: 'inline-flex',
@@ -216,7 +238,6 @@ export default function LngStatPage({ data }: { data: ResourceData }) {
             gap: 6,
             marginBottom: 36,
             opacity: 0.7,
-            transition: 'opacity 0.15s',
           }}
         >
           ← Back to map
@@ -224,27 +245,20 @@ export default function LngStatPage({ data }: { data: ResourceData }) {
 
         {/* Page header */}
         <div style={{ marginBottom: 40 }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              marginBottom: 8,
-            }}
-          >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
             <span
               style={{
                 width: 10,
                 height: 10,
                 borderRadius: '50%',
-                background: ACCENT,
+                background: accent,
                 display: 'inline-block',
                 flexShrink: 0,
               }}
             />
             <span
               style={{
-                color: ACCENT,
+                color: accent,
                 fontWeight: 700,
                 fontSize: 12,
                 letterSpacing: '0.08em',
@@ -255,7 +269,7 @@ export default function LngStatPage({ data }: { data: ResourceData }) {
             </span>
           </div>
           <h1 style={{ margin: 0, fontSize: 36, fontWeight: 800, lineHeight: 1.1 }}>
-            LNG Exports
+            {data.displayName} Exports
           </h1>
           <p style={{ margin: '8px 0 0', color: 'rgba(255,255,255,0.5)', fontSize: 15 }}>
             Annual export volumes, revenue, royalties, and corporate tax by destination country
@@ -305,7 +319,7 @@ export default function LngStatPage({ data }: { data: ResourceData }) {
               max={maxYears}
               value={rangeYears}
               onChange={(e) => setRangeYears(Number(e.target.value))}
-              style={{ width: '100%', accentColor: ACCENT, cursor: 'pointer' }}
+              style={{ width: '100%', accentColor: accent, cursor: 'pointer' }}
               aria-label="Select number of years"
             />
             <div
@@ -334,23 +348,27 @@ export default function LngStatPage({ data }: { data: ResourceData }) {
         >
           <KpiCard
             label="Total export volume"
-            value={`${fmt(kpis.vol)} PJ`}
-            sub="Petajoules"
+            value={`${fmt(Math.round(kpis.vol))} ${unit}`}
+            sub={data.units.volume}
+            accent={accent}
           />
           <KpiCard
             label="Total export value"
             value={`A$${fmt(kpis.val)}M`}
             sub="AUD millions"
+            accent={accent}
           />
           <KpiCard
             label="Royalties received"
             value={`A$${fmt(kpis.royalties)}M`}
             sub="AUD millions"
+            accent={accent}
           />
           <KpiCard
             label="Corporate tax paid"
             value={`A$${fmt(kpis.tax)}M`}
             sub="Estimated — AUD millions"
+            accent={accent}
           />
         </div>
 
@@ -368,9 +386,9 @@ export default function LngStatPage({ data }: { data: ResourceData }) {
             Export flow by destination
           </h2>
           <p style={{ margin: '0 0 28px', color: 'rgba(255,255,255,0.4)', fontSize: 13 }}>
-            Total volume (PJ) from Australia to each destination, {yearLabel}
+            Total volume ({unit}) from Australia to each destination, {yearLabel}
           </p>
-          <SankeyDiagram data={data} rangeYears={rangeYears} />
+          <SankeyDiagram data={data} rangeYears={rangeYears} accent={accent} />
         </div>
 
         {/* Data sources */}
