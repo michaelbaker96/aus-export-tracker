@@ -4,13 +4,21 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState, useCallback } from 'react';
 import type { PickingInfo } from 'deck.gl';
 import type { ArcData, ResourceData } from '@/types';
+import ArcTooltip from './ArcTooltip';
+import SidePanel from './SidePanel';
 
 // Dynamic import with ssr: false must live in a Client Component
 const MapView = dynamic(() => import('./MapView'), { ssr: false });
 
+interface HoverState {
+  arc: ArcData;
+  x: number;
+  y: number;
+}
+
 export default function MapClientWrapper() {
   const [arcs, setArcs] = useState<ArcData[]>([]);
-  const [hoveredArc, setHoveredArc] = useState<ArcData | null>(null);
+  const [hover, setHover] = useState<HoverState | null>(null);
   const [selectedArc, setSelectedArc] = useState<ArcData | null>(null);
 
   useEffect(() => {
@@ -23,18 +31,33 @@ export default function MapClientWrapper() {
   }, []);
 
   const handleArcHover = useCallback((info: PickingInfo<ArcData>) => {
-    setHoveredArc(info.object ?? null);
+    if (info.object) {
+      setHover({ arc: info.object, x: info.x, y: info.y });
+    } else {
+      setHover(null);
+    }
   }, []);
 
   const handleArcClick = useCallback((info: PickingInfo<ArcData>) => {
-    setSelectedArc(info.object ?? null);
+    if (info.object) {
+      setSelectedArc(info.object);
+      setHover(null);
+    }
   }, []);
 
   return (
-    <MapView
-      arcs={arcs}
-      onArcHover={handleArcHover}
-      onArcClick={handleArcClick}
-    />
+    <>
+      <MapView
+        arcs={arcs}
+        onArcHover={handleArcHover}
+        onArcClick={handleArcClick}
+      />
+      {hover && (
+        <ArcTooltip arc={hover.arc} x={hover.x} y={hover.y} />
+      )}
+      {selectedArc && (
+        <SidePanel arc={selectedArc} onClose={() => setSelectedArc(null)} />
+      )}
+    </>
   );
 }
