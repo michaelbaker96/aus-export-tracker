@@ -1,0 +1,383 @@
+{
+  "resource": "lng",
+  "displayName": "LNG",
+  "units": {
+    "volume": "PJ (petajoules)",
+    "value": "AUD millions"
+  },
+  "lastUpdated": "2024-06-30",
+  "sources": [
+    "Department of Foreign Affairs and Trade – Trade Statistics",
+    "Australian Energy Market Operator – Gas Statement of Opportunities 2024",
+    "Woodside Energy Annual Report 2023",
+    "Santos Annual Report 2023",
+    "UN Comtrade – HS 2711 (Petroleum gases), Australia reporter (used for country proportions)"
+  ],
+  "arcs": [
+    {
+      "resourceType": "lng",
+      "originCoordinates": [
+        116.85,
+        -20.74
+      ],
+      "destinationCoordinates": [
+        138.25,
+        36.2
+      ],
+      "destinationCountry": "Japan",
+      "volumeLatestYear": 1488,
+      "exportValueAUD": 24081,
+      "royaltiesAUD": 722,
+      "corporateTaxAUD": 1565,
+      "costBasisMinAUD": 4762,
+      "costBasisMaxAUD": 9523
+    },
+    {
+      "resourceType": "lng",
+      "originCoordinates": [
+        116.85,
+        -20.74
+      ],
+      "destinationCoordinates": [
+        121.47,
+        31.23
+      ],
+      "destinationCountry": "China",
+      "volumeLatestYear": 1203,
+      "exportValueAUD": 19195,
+      "royaltiesAUD": 576,
+      "corporateTaxAUD": 1248,
+      "costBasisMinAUD": 3850,
+      "costBasisMaxAUD": 7699
+    },
+    {
+      "resourceType": "lng",
+      "originCoordinates": [
+        116.85,
+        -20.74
+      ],
+      "destinationCoordinates": [
+        129.08,
+        35.18
+      ],
+      "destinationCountry": "Rep. of Korea",
+      "volumeLatestYear": 634,
+      "exportValueAUD": 10330,
+      "royaltiesAUD": 310,
+      "corporateTaxAUD": 671,
+      "costBasisMinAUD": 2029,
+      "costBasisMaxAUD": 4058
+    },
+    {
+      "resourceType": "lng",
+      "originCoordinates": [
+        116.85,
+        -20.74
+      ],
+      "destinationCoordinates": [
+        120.96,
+        23.7
+      ],
+      "destinationCountry": "Taiwan",
+      "volumeLatestYear": 459,
+      "exportValueAUD": 7329,
+      "royaltiesAUD": 220,
+      "corporateTaxAUD": 476,
+      "costBasisMinAUD": 1469,
+      "costBasisMaxAUD": 2938
+    },
+    {
+      "resourceType": "lng",
+      "originCoordinates": [
+        116.85,
+        -20.74
+      ],
+      "destinationCoordinates": [
+        103.82,
+        1.35
+      ],
+      "destinationCountry": "Singapore",
+      "volumeLatestYear": 328,
+      "exportValueAUD": 5026,
+      "royaltiesAUD": 151,
+      "corporateTaxAUD": 327,
+      "costBasisMinAUD": 1050,
+      "costBasisMaxAUD": 2099
+    },
+    {
+      "resourceType": "lng",
+      "originCoordinates": [
+        116.85,
+        -20.74
+      ],
+      "destinationCoordinates": [
+        107,
+        -6.2
+      ],
+      "destinationCountry": "Indonesia",
+      "volumeLatestYear": 263,
+      "exportValueAUD": 3839,
+      "royaltiesAUD": 115,
+      "corporateTaxAUD": 250,
+      "costBasisMinAUD": 842,
+      "costBasisMaxAUD": 1683
+    }
+  ],
+  "years": [
+    {
+      "year": 2019,
+      "totalVolume": 4160,
+      "totalValue": 47900,
+      "totalRoyalties": 1485,
+      "totalCorporateTax": 3257,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 1414,
+          "value": 16526,
+          "royalties": 512,
+          "tax": 1124
+        },
+        {
+          "country": "China",
+          "volume": 1144,
+          "value": 13173,
+          "royalties": 408,
+          "tax": 896
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 603,
+          "value": 7089,
+          "royalties": 220,
+          "tax": 482
+        },
+        {
+          "country": "Taiwan",
+          "volume": 437,
+          "value": 5030,
+          "royalties": 156,
+          "tax": 342
+        },
+        {
+          "country": "Singapore",
+          "volume": 312,
+          "value": 3449,
+          "royalties": 107,
+          "tax": 235
+        },
+        {
+          "country": "Indonesia",
+          "volume": 250,
+          "value": 2635,
+          "royalties": 82,
+          "tax": 179
+        }
+      ]
+    },
+    {
+      "year": 2020,
+      "totalVolume": 4310,
+      "totalValue": 33200,
+      "totalRoyalties": 1129,
+      "totalCorporateTax": 1660,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 1465,
+          "value": 11454,
+          "royalties": 389,
+          "tax": 573
+        },
+        {
+          "country": "China",
+          "volume": 1185,
+          "value": 9130,
+          "royalties": 310,
+          "tax": 457
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 625,
+          "value": 4914,
+          "royalties": 167,
+          "tax": 246
+        },
+        {
+          "country": "Taiwan",
+          "volume": 453,
+          "value": 3486,
+          "royalties": 119,
+          "tax": 174
+        },
+        {
+          "country": "Singapore",
+          "volume": 323,
+          "value": 2390,
+          "royalties": 81,
+          "tax": 120
+        },
+        {
+          "country": "Indonesia",
+          "volume": 259,
+          "value": 1826,
+          "royalties": 62,
+          "tax": 91
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "totalVolume": 4420,
+      "totalValue": 41500,
+      "totalRoyalties": 1328,
+      "totalCorporateTax": 2490,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 1503,
+          "value": 14317,
+          "royalties": 458,
+          "tax": 859
+        },
+        {
+          "country": "China",
+          "volume": 1216,
+          "value": 11413,
+          "royalties": 365,
+          "tax": 685
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 641,
+          "value": 6142,
+          "royalties": 197,
+          "tax": 369
+        },
+        {
+          "country": "Taiwan",
+          "volume": 464,
+          "value": 4358,
+          "royalties": 139,
+          "tax": 261
+        },
+        {
+          "country": "Singapore",
+          "volume": 332,
+          "value": 2988,
+          "royalties": 96,
+          "tax": 179
+        },
+        {
+          "country": "Indonesia",
+          "volume": 265,
+          "value": 2283,
+          "royalties": 73,
+          "tax": 137
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "totalVolume": 4490,
+      "totalValue": 91200,
+      "totalRoyalties": 2554,
+      "totalCorporateTax": 6566,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 1527,
+          "value": 31464,
+          "royalties": 881,
+          "tax": 2265
+        },
+        {
+          "country": "China",
+          "volume": 1235,
+          "value": 25080,
+          "royalties": 702,
+          "tax": 1806
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 651,
+          "value": 13498,
+          "royalties": 378,
+          "tax": 972
+        },
+        {
+          "country": "Taiwan",
+          "volume": 471,
+          "value": 9576,
+          "royalties": 268,
+          "tax": 689
+        },
+        {
+          "country": "Singapore",
+          "volume": 337,
+          "value": 6566,
+          "royalties": 184,
+          "tax": 473
+        },
+        {
+          "country": "Indonesia",
+          "volume": 269,
+          "value": 5016,
+          "royalties": 140,
+          "tax": 361
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "totalVolume": 4375,
+      "totalValue": 69800,
+      "totalRoyalties": 2094,
+      "totalCorporateTax": 4537,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 1488,
+          "value": 24081,
+          "royalties": 722,
+          "tax": 1565
+        },
+        {
+          "country": "China",
+          "volume": 1203,
+          "value": 19195,
+          "royalties": 576,
+          "tax": 1248
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 634,
+          "value": 10330,
+          "royalties": 310,
+          "tax": 671
+        },
+        {
+          "country": "Taiwan",
+          "volume": 459,
+          "value": 7329,
+          "royalties": 220,
+          "tax": 476
+        },
+        {
+          "country": "Singapore",
+          "volume": 328,
+          "value": 5026,
+          "royalties": 151,
+          "tax": 327
+        },
+        {
+          "country": "Indonesia",
+          "volume": 263,
+          "value": 3839,
+          "royalties": 115,
+          "tax": 250
+        }
+      ]
+    }
+  ]
+}
