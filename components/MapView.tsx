@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import DeckGL from '@deck.gl/react';
 import { ArcLayer } from '@deck.gl/layers';
 import { FlyToInterpolator } from 'deck.gl';
@@ -31,10 +31,24 @@ const AUSTRALIA_VIEW_STATE = {
   transitionInterpolator: new FlyToInterpolator({ speed: 1.4 }),
 };
 
+// Colour per resource type — [R, G, B]
 const ARC_COLORS: Record<string, [number, number, number]> = {
-  lng: [0, 200, 255],
-  'iron-ore': [255, 140, 50],
+  lng: [0, 191, 255],        // electric blue (#00BFFF)
+  'iron-ore': [255, 140, 0], // amber/orange (#FF8C00)
 };
+
+// Volume ranges per resource for normalising opacity/width
+// (pre-computed from the seed data to avoid scanning every frame)
+const VOLUME_RANGES: Record<string, { min: number; max: number }> = {
+  lng: { min: 263, max: 1488 },
+  'iron-ore': { min: 6.2, max: 738.7 },
+};
+
+function normaliseVolume(d: ArcData): number {
+  const range = VOLUME_RANGES[d.resourceType];
+  if (!range || range.max === range.min) return 0.5;
+  return (d.volumeLatestYear - range.min) / (range.max - range.min);
+}
 
 interface MapViewProps {
   arcs?: ArcData[];
@@ -44,6 +58,8 @@ interface MapViewProps {
 
 export default function MapView({ arcs = [], onArcHover, onArcClick }: MapViewProps) {
   const [viewState, setViewState] = useState(WORLD_VIEW_STATE);
+  const [time, setTime] = useState(0);
+  const rafRef = useRef<number>(0);
 
   // Trigger zoom-into-Australia animation on mount
   useEffect(() => {
@@ -53,21 +69,80 @@ export default function MapView({ arcs = [], onArcHover, onArcClick }: MapViewPr
     return () => clearTimeout(timer);
   }, []);
 
-  const layers = [
-    new ArcLayer<ArcData>({
-      id: 'export-arcs',
-      data: arcs,
+  // Animation loop — drives the arc pulse
+  useEffect(() => {
+    let running = true;
+    const animate = () => {
+      if (!running) return;
+      setTime(Date.now());
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => {
+      running = false;
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  // Split arcs by resource type
+  const lngArcs = arcs.filter((d) => d.resourceType === 'lng');
+  const ironOreArcs = arcs.filter((d) => d.resourceType === 'iron-ore');
+
+  // Pulse factor oscillates between 0 and 1 over ~3 seconds
+  const pulse = (Math.sin(time / 500) + 1) / 2;
+
+  function makeArcLayer(
+    id: string,
+    data: ArcData[],
+    resourceType: string,
+  ) {
+    const baseColor = ARC_COLORS[resourceType] ?? [200, 200, 200];
+
+    return new ArcLayer<ArcData>({
+      id,
+      data,
       getSourcePosition: (d) => d.originCoordinates,
       getTargetPosition: (d) => d.destinationCoordinates,
-      getSourceColor: (d) => ARC_COLORS[d.resourceType] ?? [200, 200, 200],
-      getTargetColor: (d) => ARC_COLORS[d.resourceType] ?? [200, 200, 200],
-      getWidth: (d) => Math.max(1, Math.log2(d.exportValueAUD / 1000 + 1) * 2),
+      getSourceColor: (d) => {
+        const t = normaliseVolume(d);
+        // Pulse modulates brightness — higher volume arcs pulse more visibly
+        const brightness = 0.7 + 0.3 * pulse * t;
+        return [
+          baseColor[0] * brightness,
+          baseColor[1] * brightness,
+          baseColor[2] * brightness,
+          Math.round(140 + 115 * t), // opacity: 140–255 based on volume
+        ] as [number, number, number, number];
+      },
+      getTargetColor: (d) => {
+        const t = normaliseVolume(d);
+        const brightness = 0.7 + 0.3 * pulse * t;
+        return [
+          baseColor[0] * brightness,
+          baseColor[1] * brightness,
+          baseColor[2] * brightness,
+          Math.round(140 + 115 * t),
+        ] as [number, number, number, number];
+      },
+      // Width: 1–6 based on normalised volume
+      getWidth: (d) => 1 + normaliseVolume(d) * 5,
+      widthMinPixels: 1,
+      widthMaxPixels: 8,
       pickable: true,
       autoHighlight: true,
-      highlightColor: [255, 255, 255, 120],
+      highlightColor: [255, 255, 255, 180],
       onHover: onArcHover as (info: PickingInfo<ArcData>) => void,
       onClick: onArcClick as (info: PickingInfo<ArcData>) => void,
-    }),
+      updateTriggers: {
+        getSourceColor: [time],
+        getTargetColor: [time],
+      },
+    });
+  }
+
+  const layers = [
+    makeArcLayer('lng-arcs', lngArcs, 'lng'),
+    makeArcLayer('iron-ore-arcs', ironOreArcs, 'iron-ore'),
   ];
 
   const handleViewStateChange = useCallback(
@@ -88,6 +163,7 @@ export default function MapView({ arcs = [], onArcHover, onArcClick }: MapViewPr
       <Map
         mapboxAccessToken={MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/dark-v11"
+        projection="mercator"
         reuseMaps
       />
     </DeckGL>
