@@ -1,0 +1,52 @@
+{
+  "_note": "Manually curated LNG fiscal data. Update annually after reviewing sources below.",
+  "_sources": [
+    "WA Department of Energy, Mines, Industry Regulation and Safety – Petroleum Titles data",
+    "ATO Tax Transparency Report (large companies, annual)",
+    "Woodside Energy Annual Report",
+    "Santos Annual Report",
+    "Shell Australia Annual Report",
+    "Australian Energy Market Operator – Gas Statement of Opportunities"
+  ],
+  "_units": {
+    "royaltiesAUD": "AUD millions",
+    "corporateTaxAUD": "AUD millions",
+    "costBasisPerPJMin": "AUD millions per PJ — low-cost fields (e.g. NWS, Pluto)",
+    "costBasisPerPJMax": "AUD millions per PJ — higher-cost projects (e.g. Prelude, Gorgon)"
+  },
+
+  "originCoordinates": [116.85, -20.74],
+  "displayName": "LNG",
+
+  "costBasisPerPJMin": 3.2,
+  "costBasisPerPJMax": 6.4,
+
+  "usdToAudByYear": {
+    "2014": 1.109,
+    "2015": 1.330,
+    "2016": 1.345,
+    "2017": 1.305,
+    "2018": 1.338,
+    "2019": 1.439,
+    "2020": 1.453,
+    "2021": 1.332,
+    "2022": 1.442,
+    "2023": 1.507,
+    "2024": 1.534,
+    "2025": 1.580
+  },
+
+  "years": {
+    "2014": { "totalRoyaltiesAUD":  680, "totalCorporateTaxAUD":  1120 },
+    "2015": { "totalRoyaltiesAUD":  810, "totalCorporateTaxAUD":  1350 },
+    "2016": { "totalRoyaltiesAUD":  790, "totalCorporateTaxAUD":  1180 },
+    "2017": { "totalRoyaltiesAUD":  910, "totalCorporateTaxAUD":  1560 },
+    "2018": { "totalRoyaltiesAUD": 1180, "totalCorporateTaxAUD":  2240 },
+    "2019": { "totalRoyaltiesAUD": 1485, "totalCorporateTaxAUD":  3257 },
+    "2020": { "totalRoyaltiesAUD": 1129, "totalCorporateTaxAUD":  1660 },
+    "2021": { "totalRoyaltiesAUD": 1328, "totalCorporateTaxAUD":  2490 },
+    "2022": { "totalRoyaltiesAUD": 2554, "totalCorporateTaxAUD":  6566 },
+    "2023": { "totalRoyaltiesAUD": 2094, "totalCorporateTaxAUD":  4537 },
+    "2024": { "totalRoyaltiesAUD": 1900, "totalCorporateTaxAUD":  3800 }
+  }
+}

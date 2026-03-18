@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "refresh-data": "node scripts/refresh-data.js"
   },
   "dependencies": {
     "@deck.gl/mapbox": "^9.2.11",

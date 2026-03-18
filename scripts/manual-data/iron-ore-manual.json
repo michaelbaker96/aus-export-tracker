@@ -1,0 +1,54 @@
+{
+  "_note": "Manually curated iron ore fiscal data. Update annually after reviewing sources below.",
+  "_sources": [
+    "WA Department of Finance – State Budget iron ore royalty receipts",
+    "ATO Tax Transparency Report (large companies, annual)",
+    "BHP Annual Report",
+    "Rio Tinto Annual Report",
+    "Fortescue Metals Group Annual Report",
+    "Port Hedland Port Authority – Monthly Throughput Statistics"
+  ],
+  "_units": {
+    "royaltyRateFOB": "fraction of FOB export value — WA state legislated rate for iron ore fines/lump",
+    "corporateTaxAUD": "AUD millions — sum of BHP + Rio Tinto + FMG Australian iron ore segment tax",
+    "costBasisPerMtMin": "AUD millions per million tonnes — low-cost Pilbara operations",
+    "costBasisPerMtMax": "AUD millions per million tonnes — higher-cost operations including port and shipping"
+  },
+
+  "originCoordinates": [118.60, -20.32],
+  "displayName": "Iron Ore",
+
+  "royaltyRateFOB": 0.075,
+
+  "costBasisPerMtMin": 48,
+  "costBasisPerMtMax": 88,
+
+  "usdToAudByYear": {
+    "2014": 1.109,
+    "2015": 1.330,
+    "2016": 1.345,
+    "2017": 1.305,
+    "2018": 1.338,
+    "2019": 1.439,
+    "2020": 1.453,
+    "2021": 1.332,
+    "2022": 1.442,
+    "2023": 1.507,
+    "2024": 1.534,
+    "2025": 1.580
+  },
+
+  "years": {
+    "2014": { "totalCorporateTaxAUD":  3100 },
+    "2015": { "totalCorporateTaxAUD":  2800 },
+    "2016": { "totalCorporateTaxAUD":  3200 },
+    "2017": { "totalCorporateTaxAUD":  4100 },
+    "2018": { "totalCorporateTaxAUD":  5600 },
+    "2019": { "totalCorporateTaxAUD":  4848 },
+    "2020": { "totalCorporateTaxAUD":  7964 },
+    "2021": { "totalCorporateTaxAUD": 12958 },
+    "2022": { "totalCorporateTaxAUD": 10894 },
+    "2023": { "totalCorporateTaxAUD":  9750 },
+    "2024": { "totalCorporateTaxAUD":  8900 }
+  }
+}
