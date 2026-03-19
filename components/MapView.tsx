@@ -8,6 +8,7 @@ import type { PickingInfo } from 'deck.gl';
 import Map from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { ArcData } from '@/types';
+import { RESOURCE_COLORS, hexToRgb } from '@/lib/resource-config';
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
@@ -29,12 +30,6 @@ const AUSTRALIA_VIEW_STATE = {
   bearing: 0,
   transitionDuration: 3200,
   transitionInterpolator: new FlyToInterpolator({ speed: 1.4 }),
-};
-
-// Colour per resource type — [R, G, B]
-const ARC_COLORS: Record<string, [number, number, number]> = {
-  lng: [0, 191, 255],        // electric blue (#00BFFF)
-  'iron-ore': [255, 140, 0], // amber/orange (#FF8C00)
 };
 
 // Volume ranges per resource for normalising opacity/width
@@ -84,9 +79,11 @@ export default function MapView({ arcs = [], onArcHover, onArcClick }: MapViewPr
     };
   }, []);
 
-  // Split arcs by resource type
-  const lngArcs = arcs.filter((d) => d.resourceType === 'lng');
-  const ironOreArcs = arcs.filter((d) => d.resourceType === 'iron-ore');
+  // Group arcs by resource type to create one layer per type
+  const arcsByType = arcs.reduce<Record<string, ArcData[]>>((acc, d) => {
+    (acc[d.resourceType] ??= []).push(d);
+    return acc;
+  }, {});
 
   // Pulse factor oscillates between 0 and 1 over ~3 seconds
   const pulse = (Math.sin(time / 500) + 1) / 2;
@@ -96,7 +93,7 @@ export default function MapView({ arcs = [], onArcHover, onArcClick }: MapViewPr
     data: ArcData[],
     resourceType: string,
   ) {
-    const baseColor = ARC_COLORS[resourceType] ?? [200, 200, 200];
+    const baseColor = hexToRgb(RESOURCE_COLORS[resourceType] ?? '#c8c8c8');
 
     return new ArcLayer<ArcData>({
       id,
@@ -140,10 +137,9 @@ export default function MapView({ arcs = [], onArcHover, onArcClick }: MapViewPr
     });
   }
 
-  const layers = [
-    makeArcLayer('lng-arcs', lngArcs, 'lng'),
-    makeArcLayer('iron-ore-arcs', ironOreArcs, 'iron-ore'),
-  ];
+  const layers = Object.entries(arcsByType).map(([type, data]) =>
+    makeArcLayer(`${type}-arcs`, data, type),
+  );
 
   const handleViewStateChange = useCallback(
     ({ viewState: vs }: { viewState: Record<string, unknown> }) => {

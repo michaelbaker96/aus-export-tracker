@@ -1,12 +1,14 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import type { PickingInfo } from 'deck.gl';
 import type { ArcData, ResourceData } from '@/types';
+import { RESOURCE_COLORS } from '@/lib/resource-config';
 import ArcTooltip from './ArcTooltip';
 import SidePanel from './SidePanel';
 import MapLegend from './MapLegend';
+import ResourceFilterPanel, { type ResourceEntry } from './ResourceFilterPanel';
 
 // Dynamic import with ssr: false must live in a Client Component
 const MapView = dynamic(() => import('./MapView'), { ssr: false });
@@ -19,6 +21,8 @@ interface HoverState {
 
 export default function MapClientWrapper() {
   const [arcs, setArcs] = useState<ArcData[]>([]);
+  const [resourceMeta, setResourceMeta] = useState<Omit<ResourceEntry, 'active'>[]>([]);
+  const [activeResources, setActiveResources] = useState<Set<string>>(new Set());
   const [hover, setHover] = useState<HoverState | null>(null);
   const [selectedArc, setSelectedArc] = useState<ArcData | null>(null);
 
@@ -27,7 +31,34 @@ export default function MapClientWrapper() {
       fetch('/data/lng.json').then((r) => r.json()) as Promise<ResourceData>,
       fetch('/data/iron-ore.json').then((r) => r.json()) as Promise<ResourceData>,
     ]).then(([lng, ironOre]) => {
-      setArcs([...lng.arcs, ...ironOre.arcs]);
+      const datasets = [lng, ironOre];
+      const meta = datasets.map((d) => ({
+        resourceType: d.resource,
+        displayName: d.displayName,
+        color: RESOURCE_COLORS[d.resource] ?? '#ffffff',
+      }));
+      setResourceMeta(meta);
+      setActiveResources(new Set(meta.map((m) => m.resourceType)));
+      setArcs(datasets.flatMap((d) => d.arcs));
+    });
+  }, []);
+
+  const filteredArcs = useMemo(
+    () => arcs.filter((a) => activeResources.has(a.resourceType)),
+    [arcs, activeResources],
+  );
+
+  const resources: ResourceEntry[] = resourceMeta.map((m) => ({
+    ...m,
+    active: activeResources.has(m.resourceType),
+  }));
+
+  const handleToggle = useCallback((resourceType: string) => {
+    setActiveResources((prev) => {
+      const next = new Set(prev);
+      if (next.has(resourceType)) next.delete(resourceType);
+      else next.add(resourceType);
+      return next;
     });
   }, []);
 
@@ -49,7 +80,7 @@ export default function MapClientWrapper() {
   return (
     <>
       <MapView
-        arcs={arcs}
+        arcs={filteredArcs}
         onArcHover={handleArcHover}
         onArcClick={handleArcClick}
       />
@@ -60,6 +91,7 @@ export default function MapClientWrapper() {
         <SidePanel arc={selectedArc} onClose={() => setSelectedArc(null)} />
       )}
       <MapLegend />
+      <ResourceFilterPanel resources={resources} onToggle={handleToggle} />
     </>
   );
 }
