@@ -73,7 +73,7 @@ export default function ArcTooltip({ arc, x, y }: ArcTooltipProps) {
         <span>
           Volume{' '}
           <strong style={{ color: 'var(--foreground)' }}>
-            {fmt(arc.volumeLatestYear)} {VOLUME_UNIT[arc.resourceType]}
+            {fmt(arc.volume)} {VOLUME_UNIT[arc.resourceType]}
           </strong>
         </span>
         <span>

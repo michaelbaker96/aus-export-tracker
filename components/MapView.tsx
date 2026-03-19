@@ -42,7 +42,7 @@ const VOLUME_RANGES: Record<string, { min: number; max: number }> = {
 function normaliseVolume(d: ArcData): number {
   const range = VOLUME_RANGES[d.resourceType];
   if (!range || range.max === range.min) return 0.5;
-  return (d.volumeLatestYear - range.min) / (range.max - range.min);
+  return (d.volume - range.min) / (range.max - range.min);
 }
 
 interface MapViewProps {

@@ -156,7 +156,7 @@ export default function SidePanel({ arc, onClose }: SidePanelProps) {
       <div style={{ flex: 1, padding: '0 20px', overflowY: 'auto' }}>
         <Row
           label="Export volume"
-          value={`${fmt(arc.volumeLatestYear)} ${VOLUME_UNIT[arc.resourceType]}`}
+          value={`${fmt(arc.volume)} ${VOLUME_UNIT[arc.resourceType]}`}
         />
         <Row
           label="Export value"

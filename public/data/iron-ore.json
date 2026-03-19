@@ -26,7 +26,7 @@
         31.23
       ],
       "destinationCountry": "China",
-      "volumeLatestYear": 738.7,
+      "volume": 738.7,
       "exportValueAUD": 96309,
       "royaltiesAUD": 7223,
       "corporateTaxAUD": 7897,
@@ -44,7 +44,7 @@
         36.2
       ],
       "destinationCountry": "Japan",
-      "volumeLatestYear": 74.8,
+      "volume": 74.8,
       "exportValueAUD": 9750,
       "royaltiesAUD": 731,
       "corporateTaxAUD": 800,
@@ -62,7 +62,7 @@
         35.18
       ],
       "destinationCountry": "Rep. of Korea",
-      "volumeLatestYear": 47.4,
+      "volume": 47.4,
       "exportValueAUD": 6183,
       "royaltiesAUD": 464,
       "corporateTaxAUD": 507,
@@ -80,7 +80,7 @@
         23.7
       ],
       "destinationCountry": "Taiwan",
-      "volumeLatestYear": 25.5,
+      "volume": 25.5,
       "exportValueAUD": 3329,
       "royaltiesAUD": 250,
       "corporateTaxAUD": 273,
@@ -98,7 +98,7 @@
         51.92
       ],
       "destinationCountry": "Netherlands",
-      "volumeLatestYear": 16.4,
+      "volume": 16.4,
       "exportValueAUD": 2140,
       "royaltiesAUD": 161,
       "corporateTaxAUD": 175,
@@ -116,7 +116,7 @@
         19.08
       ],
       "destinationCountry": "India",
-      "volumeLatestYear": 9.1,
+      "volume": 9.1,
       "exportValueAUD": 1189,
       "royaltiesAUD": 89,
       "corporateTaxAUD": 97,

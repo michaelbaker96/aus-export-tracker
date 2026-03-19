@@ -24,7 +24,7 @@
         36.2
       ],
       "destinationCountry": "Japan",
-      "volumeLatestYear": 110.4,
+      "volume": 110.4,
       "exportValueAUD": 27620,
       "royaltiesAUD": 2762,
       "corporateTaxAUD": 2210,
@@ -42,7 +42,7 @@
         20.59
       ],
       "destinationCountry": "India",
-      "volumeLatestYear": 41.8,
+      "volume": 41.8,
       "exportValueAUD": 13496,
       "royaltiesAUD": 1350,
       "corporateTaxAUD": 1080,
@@ -60,7 +60,7 @@
         31.23
       ],
       "destinationCountry": "China",
-      "volumeLatestYear": 84,
+      "volume": 84,
       "exportValueAUD": 12736,
       "royaltiesAUD": 1274,
       "corporateTaxAUD": 1019,
@@ -78,7 +78,7 @@
         35.18
       ],
       "destinationCountry": "Rep. of Korea",
-      "volumeLatestYear": 32.1,
+      "volume": 32.1,
       "exportValueAUD": 8244,
       "royaltiesAUD": 824,
       "corporateTaxAUD": 660,
@@ -96,7 +96,7 @@
         21.03
       ],
       "destinationCountry": "Viet Nam",
-      "volumeLatestYear": 17.8,
+      "volume": 17.8,
       "exportValueAUD": 3849,
       "royaltiesAUD": 385,
       "corporateTaxAUD": 308,
@@ -114,7 +114,7 @@
         52.37
       ],
       "destinationCountry": "Netherlands",
-      "volumeLatestYear": 11,
+      "volume": 11,
       "exportValueAUD": 3534,
       "royaltiesAUD": 353,
       "corporateTaxAUD": 283,
@@ -132,7 +132,7 @@
         3.14
       ],
       "destinationCountry": "Malaysia",
-      "volumeLatestYear": 7.4,
+      "volume": 7.4,
       "exportValueAUD": 1569,
       "royaltiesAUD": 157,
       "corporateTaxAUD": 126,
@@ -150,7 +150,7 @@
         -22.91
       ],
       "destinationCountry": "Brazil",
-      "volumeLatestYear": 4.7,
+      "volume": 4.7,
       "exportValueAUD": 1372,
       "royaltiesAUD": 137,
       "corporateTaxAUD": 110,
@@ -168,7 +168,7 @@
         -6.2
       ],
       "destinationCountry": "Indonesia",
-      "volumeLatestYear": 6.7,
+      "volume": 6.7,
       "exportValueAUD": 2068,
       "royaltiesAUD": 207,
       "corporateTaxAUD": 165,
@@ -186,7 +186,7 @@
         48.86
       ],
       "destinationCountry": "France",
-      "volumeLatestYear": 2.9,
+      "volume": 2.9,
       "exportValueAUD": 931,
       "royaltiesAUD": 93,
       "corporateTaxAUD": 74,

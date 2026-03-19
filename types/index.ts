@@ -8,7 +8,7 @@ export interface ArcData {
   originCoordinates: [number, number]; // [longitude, latitude] — point in Western Australia
   destinationCoordinates: [number, number]; // [longitude, latitude]
   destinationCountry: string;
-  volumeLatestYear: number; // PJ for LNG; million tonnes (Mt) for iron ore
+  volume: number; // PJ for LNG; million tonnes (Mt) for iron ore
   exportValueAUD: number; // AUD millions
   royaltiesAUD: number; // AUD millions
   corporateTaxAUD: number; // AUD millions
