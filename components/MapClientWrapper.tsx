@@ -5,11 +5,13 @@ import { useEffect, useState, useCallback, useMemo } from 'react';
 import type { PickingInfo } from 'deck.gl';
 import type { ArcData, ResourceData } from '@/types';
 import { RESOURCE_COLORS } from '@/lib/resource-config';
+import { computeArcsForRange } from '@/lib/computeArcsForRange';
 import ArcTooltip from './ArcTooltip';
 import SidePanel from './SidePanel';
 import MapLegend from './MapLegend';
 import ResourceFilterPanel, { type ResourceEntry } from './ResourceFilterPanel';
 import CountryFilterPanel, { type CountryEntry } from './CountryFilterPanel';
+import YearRangeBar from './YearRangeBar';
 
 // Dynamic import with ssr: false must live in a Client Component
 const MapView = dynamic(() => import('./MapView'), { ssr: false });
@@ -21,11 +23,12 @@ interface HoverState {
 }
 
 export default function MapClientWrapper() {
-  const [arcs, setArcs] = useState<ArcData[]>([]);
+  const [datasets, setDatasets] = useState<ResourceData[]>([]);
   const [resourceMeta, setResourceMeta] = useState<Omit<ResourceEntry, 'active'>[]>([]);
   const [activeResources, setActiveResources] = useState<Set<string>>(new Set());
   const [allCountries, setAllCountries] = useState<string[]>([]);
   const [activeCountries, setActiveCountries] = useState<Set<string>>(new Set());
+  const [yearRange, setYearRange] = useState<[number, number]>([2014, 2025]);
   const [hover, setHover] = useState<HoverState | null>(null);
   const [selectedArc, setSelectedArc] = useState<ArcData | null>(null);
 
@@ -35,25 +38,40 @@ export default function MapClientWrapper() {
       fetch('/data/iron-ore.json').then((r) => r.json()) as Promise<ResourceData>,
       fetch('/data/coal.json').then((r) => r.json()) as Promise<ResourceData>,
     ]).then(([lng, ironOre, coal]) => {
-      const datasets = [lng, ironOre, coal];
-      const meta = datasets.map((d) => ({
+      const loaded = [lng, ironOre, coal];
+      const meta = loaded.map((d) => ({
         resourceType: d.resource,
         displayName: d.displayName,
         color: RESOURCE_COLORS[d.resource] ?? '#ffffff',
       }));
-      const allArcs = datasets.flatMap((d) => d.arcs);
+      const allArcs = loaded.flatMap((d) => d.arcs);
       const countries = [...new Set(allArcs.map((a) => a.destinationCountry))].sort();
+      const allYears = loaded.flatMap((d) => d.years.map((y) => y.year));
+      const minYear = Math.min(...allYears);
+      const maxYear = Math.max(...allYears);
+      setDatasets(loaded);
       setResourceMeta(meta);
       setActiveResources(new Set(meta.map((m) => m.resourceType)));
       setAllCountries(countries);
       setActiveCountries(new Set(countries));
-      setArcs(allArcs);
+      setYearRange([minYear, maxYear]);
     });
   }, []);
 
+  const [startYear, endYear] = yearRange;
+
+  const [globalMinYear, globalMaxYear] = useMemo(() => {
+    if (datasets.length === 0) return [2014, 2025];
+    const allYears = datasets.flatMap((d) => d.years.map((y) => y.year));
+    return [Math.min(...allYears), Math.max(...allYears)];
+  }, [datasets]);
+
   const filteredArcs = useMemo(
-    () => arcs.filter((a) => activeResources.has(a.resourceType) && activeCountries.has(a.destinationCountry)),
-    [arcs, activeResources, activeCountries],
+    () =>
+      computeArcsForRange(datasets, startYear, endYear).filter(
+        (a) => activeResources.has(a.resourceType) && activeCountries.has(a.destinationCountry),
+      ),
+    [datasets, startYear, endYear, activeResources, activeCountries],
   );
 
   const resources: ResourceEntry[] = resourceMeta.map((m) => ({
@@ -99,8 +117,19 @@ export default function MapClientWrapper() {
     }
   }, []);
 
+  const handleRangeChange = useCallback((start: number, end: number) => {
+    setYearRange([start, end]);
+  }, []);
+
   return (
     <>
+      <YearRangeBar
+        minYear={globalMinYear}
+        maxYear={globalMaxYear}
+        startYear={startYear}
+        endYear={endYear}
+        onRangeChange={handleRangeChange}
+      />
       <MapView
         arcs={filteredArcs}
         onArcHover={handleArcHover}
@@ -116,7 +145,7 @@ export default function MapClientWrapper() {
       <div
         style={{
           position: 'absolute',
-          top: 16,
+          top: 52,
           right: 16,
           display: 'flex',
           flexDirection: 'column',

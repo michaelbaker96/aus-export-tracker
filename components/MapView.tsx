@@ -32,17 +32,18 @@ const AUSTRALIA_VIEW_STATE = {
   transitionInterpolator: new FlyToInterpolator({ speed: 1.4 }),
 };
 
-// Volume ranges per resource for normalising opacity/width
-// (pre-computed from the seed data to avoid scanning every frame)
-const VOLUME_RANGES: Record<string, { min: number; max: number }> = {
-  lng: { min: 263, max: 1488 },
-  'iron-ore': { min: 6.2, max: 738.7 },
-};
-
-function normaliseVolume(d: ArcData): number {
-  const range = VOLUME_RANGES[d.resourceType];
-  if (!range || range.max === range.min) return 0.5;
-  return (d.volume - range.min) / (range.max - range.min);
+function buildVolumeRanges(arcs: ArcData[]): Record<string, { min: number; max: number }> {
+  const ranges: Record<string, { min: number; max: number }> = {};
+  for (const arc of arcs) {
+    const r = ranges[arc.resourceType];
+    if (!r) {
+      ranges[arc.resourceType] = { min: arc.volume, max: arc.volume };
+    } else {
+      if (arc.volume < r.min) r.min = arc.volume;
+      if (arc.volume > r.max) r.max = arc.volume;
+    }
+  }
+  return ranges;
 }
 
 interface MapViewProps {
@@ -85,8 +86,17 @@ export default function MapView({ arcs = [], onArcHover, onArcClick }: MapViewPr
     return acc;
   }, {});
 
+  // Volume ranges derived from the current arc set — always relative to what's visible
+  const volumeRanges = buildVolumeRanges(arcs);
+
   // Pulse factor oscillates between 0 and 1 over ~3 seconds
   const pulse = (Math.sin(time / 500) + 1) / 2;
+
+  function normaliseVolume(d: ArcData): number {
+    const range = volumeRanges[d.resourceType];
+    if (!range || range.max === range.min) return 0.5;
+    return (d.volume - range.min) / (range.max - range.min);
+  }
 
   function makeArcLayer(
     id: string,
