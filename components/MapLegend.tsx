@@ -1,67 +1,34 @@
 import Link from 'next/link';
+import { RESOURCE_COLORS } from '@/lib/resource-config';
 
 const RESOURCES = [
-  { label: 'LNG', color: '#00bfff', href: '/resources/lng' },
-  { label: 'Iron Ore', color: '#ff8c00', href: '/resources/iron-ore' },
-  { label: 'Coal', color: '#f59e0b', href: '/resources/coal' },
+  { label: 'LNG', key: 'lng', href: '/resources/lng' },
+  { label: 'Iron Ore', key: 'iron-ore', href: '/resources/iron-ore' },
+  { label: 'Coal', key: 'coal', href: '/resources/coal' },
 ];
 
 export default function MapLegend() {
   return (
-    <div
-      style={{
-        position: 'absolute',
-        bottom: 32,
-        left: 16,
-        background: 'rgba(8, 12, 20, 0.82)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 10,
-        padding: '12px 16px',
-        backdropFilter: 'blur(8px)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-        zIndex: 10,
-      }}
-    >
-      <div
-        style={{
-          color: 'rgba(255,255,255,0.3)',
-          fontSize: 10,
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          marginBottom: 2,
-        }}
-      >
+    <div className="absolute bottom-8 left-4 bg-surface-container rounded-lg p-3 px-4 flex flex-col gap-2.5 z-10">
+      <div className="font-body text-[10px] uppercase tracking-widest text-on-surface-variant/60 mb-0.5">
         Resources
       </div>
-      {RESOURCES.map(({ label, color, href }) => (
-        <Link
-          key={label}
-          href={href}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            textDecoration: 'none',
-            color: 'rgba(255,255,255,0.75)',
-            fontSize: 13,
-            fontWeight: 500,
-          }}
-        >
-          <span
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: '50%',
-              background: color,
-              flexShrink: 0,
-              boxShadow: `0 0 6px ${color}88`,
-            }}
-          />
-          {label}
-        </Link>
-      ))}
+      {RESOURCES.map(({ label, key, href }) => {
+        const color = RESOURCE_COLORS[key];
+        return (
+          <Link
+            key={label}
+            href={href}
+            className="flex items-center gap-2 no-underline font-body text-sm font-medium text-on-surface hover:text-primary transition-colors"
+          >
+            <span
+              className="w-2.5 h-2.5 rounded-full shrink-0"
+              style={{ background: color, boxShadow: `0 0 6px ${color}88` }}
+            />
+            {label}
+          </Link>
+        );
+      })}
     </div>
   );
 }

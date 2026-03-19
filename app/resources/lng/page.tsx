@@ -15,5 +15,5 @@ export const metadata = {
 };
 
 export default function LngPage() {
-  return <ResourceStatPage data={lngData as ResourceData} accent="#00bfff" />;
+  return <ResourceStatPage data={lngData as ResourceData} accent="#00daf3" />;
 }

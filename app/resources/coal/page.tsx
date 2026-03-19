@@ -15,5 +15,5 @@ export const metadata = {
 };
 
 export default function CoalPage() {
-  return <ResourceStatPage data={coalData as ResourceData} accent="#f59e0b" />;
+  return <ResourceStatPage data={coalData as ResourceData} accent="#b5ffaa" />;
 }

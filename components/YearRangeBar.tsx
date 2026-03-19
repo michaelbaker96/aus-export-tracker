@@ -31,70 +31,21 @@ export default function YearRangeBar({
   }
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 150,
-        background: 'rgba(8, 12, 20, 0.88)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-        padding: '10px 20px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 16,
-      }}
-    >
-      <div
-        style={{
-          color: 'rgba(255,255,255,0.3)',
-          fontSize: 10,
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          flexShrink: 0,
-        }}
-      >
+    <div className="absolute top-0 left-0 right-0 z-[150] bg-surface/90 backdrop-blur-xl flex items-center gap-4 px-5 py-2.5">
+      <div className="font-body text-on-surface-variant text-[10px] uppercase tracking-widest shrink-0">
         Year range
       </div>
 
-      <div
-        style={{
-          position: 'relative',
-          flex: 1,
-          height: 20,
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
+      <div className="relative flex-1 h-5 flex items-center">
         {/* Track background */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            height: 3,
-            borderRadius: 2,
-            background: 'rgba(255,255,255,0.1)',
-            pointerEvents: 'none',
-          }}
-        />
+        <div className="absolute left-0 right-0 h-[3px] rounded-sm bg-on-surface/10 pointer-events-none" />
         {/* Active range fill */}
         <div
-          style={{
-            position: 'absolute',
-            left: `${startPct}%`,
-            right: `${100 - endPct}%`,
-            height: 3,
-            borderRadius: 2,
-            background: 'rgba(255,255,255,0.45)',
-            pointerEvents: 'none',
-          }}
+          className="absolute h-[3px] rounded-sm bg-on-surface/45 pointer-events-none"
+          style={{ left: `${startPct}%`, right: `${100 - endPct}%` }}
         />
 
-        {/* Start handle — raise z-index when at max so it stays draggable */}
+        {/* Start handle */}
         <input
           className="year-range-thumb"
           type="range"
@@ -111,7 +62,7 @@ export default function YearRangeBar({
           }}
         />
 
-        {/* End handle — raise z-index when at min so it stays draggable */}
+        {/* End handle */}
         <input
           className="year-range-thumb"
           type="range"
@@ -129,16 +80,7 @@ export default function YearRangeBar({
         />
       </div>
 
-      <div
-        style={{
-          fontSize: 14,
-          fontWeight: 600,
-          color: 'rgba(255,255,255,0.85)',
-          flexShrink: 0,
-          minWidth: 90,
-          textAlign: 'right',
-        }}
-      >
+      <div className="font-body font-semibold text-on-surface text-sm shrink-0 min-w-[90px] text-right">
         {label}
       </div>
 
@@ -162,8 +104,8 @@ export default function YearRangeBar({
           width: 16px;
           height: 16px;
           border-radius: 50%;
-          background: #fff;
-          border: 2px solid rgba(255,255,255,0.5);
+          background: #00daf3;
+          border: 2px solid rgba(0, 218, 243, 0.5);
           cursor: grab;
           box-shadow: 0 1px 6px rgba(0,0,0,0.5);
           margin-top: -7px;
@@ -180,8 +122,8 @@ export default function YearRangeBar({
           width: 16px;
           height: 16px;
           border-radius: 50%;
-          background: #fff;
-          border: 2px solid rgba(255,255,255,0.5);
+          background: #00daf3;
+          border: 2px solid rgba(0, 218, 243, 0.5);
           cursor: grab;
           box-shadow: 0 1px 6px rgba(0,0,0,0.5);
         }

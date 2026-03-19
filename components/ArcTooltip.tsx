@@ -1,6 +1,7 @@
 'use client';
 
 import type { ArcData } from '@/types';
+import { RESOURCE_COLORS } from '@/lib/resource-config';
 
 interface ArcTooltipProps {
   arc: ArcData;
@@ -11,16 +12,13 @@ interface ArcTooltipProps {
 const LABELS: Record<string, string> = {
   lng: 'LNG',
   'iron-ore': 'Iron Ore',
-};
-
-const ACCENT: Record<string, string> = {
-  lng: 'var(--accent-lng)',
-  'iron-ore': 'var(--accent-iron)',
+  coal: 'Coal',
 };
 
 const VOLUME_UNIT: Record<string, string> = {
   lng: 'PJ',
   'iron-ore': 'Mt',
+  coal: 'Mt',
 };
 
 function fmt(n: number) {
@@ -29,56 +27,42 @@ function fmt(n: number) {
 
 export default function ArcTooltip({ arc, x, y }: ArcTooltipProps) {
   const revenue = arc.royaltiesAUD + arc.corporateTaxAUD;
-  const accent = ACCENT[arc.resourceType] ?? '#fff';
+  const accent = RESOURCE_COLORS[arc.resourceType] ?? '#e2e5eb';
 
   return (
     <div
+      className="glass-panel rounded-lg outline outline-1 outline-outline-variant/15 pointer-events-none min-w-[200px] shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
       style={{
         position: 'fixed',
         left: x + 16,
         top: y - 8,
-        pointerEvents: 'none',
         zIndex: 100,
-        background: 'rgba(8, 12, 20, 0.88)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255,255,255,0.1)',
-        borderRadius: 8,
         padding: '10px 14px',
-        minWidth: 200,
-        color: 'var(--foreground)',
         fontSize: 13,
         lineHeight: 1.5,
-        boxShadow: '0 4px 24px rgba(0,0,0,0.5)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+      <div className="flex items-center gap-1.5 mb-1.5">
         <span
-          style={{
-            display: 'inline-block',
-            width: 8,
-            height: 8,
-            borderRadius: '50%',
-            background: accent,
-            flexShrink: 0,
-          }}
+          className="inline-block w-2 h-2 rounded-full shrink-0"
+          style={{ background: accent }}
         />
-        <span style={{ fontWeight: 600, color: accent }}>
+        <span className="font-body font-semibold" style={{ color: accent }}>
           {LABELS[arc.resourceType] ?? arc.resourceType}
         </span>
-        <span style={{ color: 'rgba(255,255,255,0.5)', marginLeft: 2 }}>→</span>
-        <span style={{ fontWeight: 600 }}>{arc.destinationCountry}</span>
+        <span className="text-on-surface-variant/50 ml-0.5">→</span>
+        <span className="font-semibold text-on-surface">{arc.destinationCountry}</span>
       </div>
-      <div style={{ color: 'rgba(255,255,255,0.7)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <div className="flex flex-col gap-y-1.5 font-body text-on-surface-variant">
         <span>
           Volume{' '}
-          <strong style={{ color: 'var(--foreground)' }}>
+          <strong className="text-on-surface font-semibold">
             {fmt(arc.volume)} {VOLUME_UNIT[arc.resourceType]}
           </strong>
         </span>
         <span>
           Govt. revenue{' '}
-          <strong style={{ color: 'var(--foreground)' }}>
+          <strong className="text-on-surface font-semibold">
             A${fmt(revenue)}M
           </strong>
         </span>

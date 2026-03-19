@@ -15,5 +15,5 @@ export const metadata = {
 };
 
 export default function IronOrePage() {
-  return <ResourceStatPage data={ironOreData as ResourceData} accent="#ff8c00" />;
+  return <ResourceStatPage data={ironOreData as ResourceData} accent="#ffd799" />;
 }

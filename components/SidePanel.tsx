@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import type { ArcData } from '@/types';
+import { RESOURCE_COLORS } from '@/lib/resource-config';
 
 interface SidePanelProps {
   arc: ArcData;
@@ -11,21 +12,19 @@ interface SidePanelProps {
 const LABELS: Record<string, string> = {
   lng: 'LNG',
   'iron-ore': 'Iron Ore',
-};
-
-const ACCENT: Record<string, string> = {
-  lng: 'var(--accent-lng)',
-  'iron-ore': 'var(--accent-iron)',
+  coal: 'Coal',
 };
 
 const VOLUME_UNIT: Record<string, string> = {
   lng: 'PJ',
   'iron-ore': 'Mt',
+  coal: 'Mt',
 };
 
 const STAT_PAGE: Record<string, string> = {
   lng: '/resources/lng',
   'iron-ore': '/resources/iron-ore',
+  coal: '/resources/coal',
 };
 
 function fmt(n: number) {
@@ -34,23 +33,14 @@ function fmt(n: number) {
 
 function Row({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        padding: '10px 0',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-        gap: 12,
-      }}
-    >
+    <div className="flex justify-between items-start py-2.5 gap-3">
       <div>
-        <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12 }}>{label}</div>
+        <div className="font-body text-on-surface-variant text-xs">{label}</div>
         {sub && (
-          <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 11, marginTop: 2 }}>{sub}</div>
+          <div className="font-body text-on-surface-variant/40 text-[11px] mt-0.5">{sub}</div>
         )}
       </div>
-      <div style={{ fontWeight: 600, fontSize: 14, textAlign: 'right', flexShrink: 0 }}>
+      <div className="font-body font-semibold text-on-surface text-sm text-right shrink-0">
         {value}
       </div>
     </div>
@@ -59,9 +49,8 @@ function Row({ label, value, sub }: { label: string; value: string; sub?: string
 
 export default function SidePanel({ arc, onClose }: SidePanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
-  const accent = ACCENT[arc.resourceType] ?? '#fff';
+  const accent = RESOURCE_COLORS[arc.resourceType] ?? '#e2e5eb';
 
-  // Close on click-outside
   useEffect(() => {
     function handlePointerDown(e: PointerEvent) {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
@@ -72,7 +61,6 @@ export default function SidePanel({ arc, onClose }: SidePanelProps) {
     return () => document.removeEventListener('pointerdown', handlePointerDown);
   }, [onClose]);
 
-  // Close on Escape
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose();
@@ -86,66 +74,31 @@ export default function SidePanel({ arc, onClose }: SidePanelProps) {
   return (
     <div
       ref={panelRef}
-      style={{
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: 320,
-        zIndex: 200,
-        background: 'rgba(8, 12, 20, 0.96)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        borderLeft: '1px solid rgba(255,255,255,0.08)',
-        display: 'flex',
-        flexDirection: 'column',
-        animation: 'slideInRight 0.25s cubic-bezier(0.22, 1, 0.36, 1)',
-        boxShadow: '-8px 0 40px rgba(0,0,0,0.4)',
-      }}
+      className="fixed top-0 right-0 bottom-0 z-[200] w-80 bg-surface-container/95 backdrop-blur-xl flex flex-col shadow-[-8px_0_40px_rgba(0,0,0,0.4)]"
+      style={{ animation: 'slideInRight 0.25s cubic-bezier(0.22, 1, 0.36, 1)' }}
     >
       {/* Header */}
-      <div
-        style={{
-          padding: '20px 20px 16px',
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-        }}
-      >
+      <div className="px-5 pt-5 pb-4 flex justify-between items-start">
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+          <div className="flex items-center gap-2 mb-1">
             <span
-              style={{
-                display: 'inline-block',
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                background: accent,
-                flexShrink: 0,
-              }}
+              className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
+              style={{ background: accent }}
             />
-            <span style={{ color: accent, fontWeight: 700, fontSize: 13, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+            <span
+              className="font-headline font-bold uppercase tracking-widest text-[13px]"
+              style={{ color: accent }}
+            >
               {LABELS[arc.resourceType] ?? arc.resourceType}
             </span>
           </div>
-          <div style={{ fontSize: 20, fontWeight: 700, lineHeight: 1.2 }}>
+          <div className="font-headline text-xl font-bold text-on-surface leading-tight">
             → {arc.destinationCountry}
           </div>
         </div>
         <button
           onClick={onClose}
-          style={{
-            background: 'none',
-            border: '1px solid rgba(255,255,255,0.12)',
-            borderRadius: 6,
-            color: 'rgba(255,255,255,0.5)',
-            cursor: 'pointer',
-            fontSize: 16,
-            lineHeight: 1,
-            padding: '4px 8px',
-            flexShrink: 0,
-          }}
+          className="shrink-0 bg-transparent outline outline-1 outline-outline-variant/15 rounded-lg text-on-surface-variant cursor-pointer text-base leading-none px-2 py-1 hover:text-on-surface transition-colors"
           aria-label="Close panel"
         >
           ✕
@@ -153,7 +106,7 @@ export default function SidePanel({ arc, onClose }: SidePanelProps) {
       </div>
 
       {/* Body */}
-      <div style={{ flex: 1, padding: '0 20px', overflowY: 'auto' }}>
+      <div className="flex-1 px-5 overflow-y-auto">
         <Row
           label="Export volume"
           value={`${fmt(arc.volume)} ${VOLUME_UNIT[arc.resourceType]}`}
@@ -178,27 +131,10 @@ export default function SidePanel({ arc, onClose }: SidePanelProps) {
       </div>
 
       {/* Footer */}
-      <div
-        style={{
-          padding: '16px 20px',
-          borderTop: '1px solid rgba(255,255,255,0.08)',
-        }}
-      >
+      <div className="px-5 py-4">
         <a
           href={STAT_PAGE[arc.resourceType] ?? '#'}
-          style={{
-            display: 'block',
-            textAlign: 'center',
-            padding: '10px',
-            borderRadius: 8,
-            background: `${accent}18`,
-            border: `1px solid ${accent}40`,
-            color: accent,
-            fontWeight: 600,
-            fontSize: 13,
-            textDecoration: 'none',
-            transition: 'background 0.15s',
-          }}
+          className="block text-center py-2.5 rounded-lg bg-gradient-to-br from-primary to-primary-container text-on-primary font-semibold text-[13px] no-underline transition-opacity hover:opacity-90"
         >
           View full {LABELS[arc.resourceType]} statistics →
         </a>

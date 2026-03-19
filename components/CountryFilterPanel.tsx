@@ -12,69 +12,26 @@ interface Props {
 
 export default function CountryFilterPanel({ countries, onToggle }: Props) {
   return (
-    <div
-      style={{
-        background: 'rgba(8, 12, 20, 0.82)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 10,
-        padding: '12px 16px',
-        backdropFilter: 'blur(8px)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-        minWidth: 140,
-      }}
-    >
-      <div
-        style={{
-          color: 'rgba(255,255,255,0.3)',
-          fontSize: 10,
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          marginBottom: 2,
-        }}
-      >
+    <div className="glass-panel rounded-lg flex flex-col gap-2.5 p-3 px-4 min-w-[140px]">
+      <div className="font-body text-[10px] uppercase tracking-widest text-on-surface-variant/60 mb-0.5">
         Countries
       </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 10,
-          maxHeight: 220,
-          overflowY: 'auto',
-        }}
-      >
+      <div className="flex flex-col gap-2.5 max-h-[220px] overflow-y-auto">
         {countries.map(({ name, active }) => (
           <button
             key={name}
             onClick={() => onToggle(name)}
+            className="flex items-center gap-2 bg-transparent border-none cursor-pointer p-0 font-body text-sm font-medium text-left transition-colors shrink-0"
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: 0,
-              color: active ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.25)',
-              fontSize: 13,
-              fontWeight: 500,
-              textAlign: 'left',
-              transition: 'color 0.15s',
-              flexShrink: 0,
+              color: active ? 'var(--color-on-surface)' : 'rgba(226, 229, 235, 0.3)',
             }}
             aria-pressed={active}
             aria-label={`${active ? 'Hide' : 'Show'} ${name}`}
           >
             <span
+              className="w-1.5 h-1.5 rounded-full shrink-0 transition-colors"
               style={{
-                width: 6,
-                height: 6,
-                borderRadius: '50%',
-                background: active ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.1)',
-                flexShrink: 0,
-                transition: 'background 0.15s',
+                background: active ? 'rgba(226, 229, 235, 0.4)' : 'rgba(226, 229, 235, 0.1)',
               }}
             />
             {name}

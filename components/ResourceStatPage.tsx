@@ -10,7 +10,6 @@ function fmt(n: number): string {
   return n.toLocaleString('en-AU');
 }
 
-// "PJ (petajoules)" → "PJ"   |   "million tonnes (Mt)" → "Mt"
 function shortUnit(unitStr: string): string {
   const match = unitStr.match(/\(([^)]+)\)/);
   if (match && match[1].length <= 5 && !match[1].includes(' ')) return match[1];
@@ -29,28 +28,13 @@ function KpiCard({
   accent: string;
 }) {
   return (
-    <div
-      style={{
-        background: 'rgba(255,255,255,0.04)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 12,
-        padding: '20px 24px',
-      }}
-    >
-      <div
-        style={{
-          color: 'rgba(255,255,255,0.45)',
-          fontSize: 11,
-          textTransform: 'uppercase',
-          letterSpacing: '0.07em',
-          marginBottom: 10,
-        }}
-      >
+    <div className="bg-surface-container-high rounded-lg p-5 px-6">
+      <div className="font-body text-on-surface-variant/60 text-[11px] uppercase tracking-wider mb-2.5">
         {label}
       </div>
-      <div style={{ fontSize: 26, fontWeight: 700, color: accent, lineHeight: 1 }}>{value}</div>
+      <div className="text-[26px] font-bold leading-none" style={{ color: accent }}>{value}</div>
       {sub && (
-        <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 11, marginTop: 6 }}>{sub}</div>
+        <div className="font-body text-on-surface-variant/40 text-[11px] mt-1.5">{sub}</div>
       )}
     </div>
   );
@@ -163,9 +147,9 @@ function SankeyDiagram({
               y={midY}
               dy="0.35em"
               textAnchor={isAustralia ? 'end' : 'start'}
-              fill="rgba(255,255,255,0.75)"
+              fill="rgba(226, 229, 235, 0.75)"
               fontSize={11}
-              fontFamily="-apple-system, BlinkMacSystemFont, sans-serif"
+              fontFamily="'Inter', sans-serif"
             >
               {node.name}
             </text>
@@ -215,122 +199,66 @@ export default function ResourceStatPage({
   });
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        overflowY: 'auto',
-        background: '#080c14',
-        color: '#e2e8f0',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      }}
-    >
-      <div style={{ maxWidth: 900, margin: '0 auto', padding: '40px 24px 80px' }}>
+    <div className="fixed inset-0 overflow-y-auto bg-surface text-on-surface font-body">
+      <div className="max-w-[900px] mx-auto px-6 pt-10 pb-20">
         {/* Back link */}
         <a
           href="/"
-          style={{
-            color: accent,
-            textDecoration: 'none',
-            fontSize: 13,
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            marginBottom: 36,
-            opacity: 0.7,
-          }}
+          className="text-primary/70 font-body text-sm no-underline inline-flex items-center gap-1.5 mb-9 hover:text-primary transition-colors"
         >
           ← Back to map
         </a>
 
         {/* Page header */}
-        <div style={{ marginBottom: 40 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+        <div className="mb-10">
+          <div className="flex items-center gap-2 mb-2">
             <span
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                background: accent,
-                display: 'inline-block',
-                flexShrink: 0,
-              }}
+              className="w-2.5 h-2.5 rounded-full inline-block shrink-0"
+              style={{ background: accent }}
             />
             <span
-              style={{
-                color: accent,
-                fontWeight: 700,
-                fontSize: 12,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-              }}
+              className="font-headline font-bold text-xs tracking-widest uppercase"
+              style={{ color: accent }}
             >
               Australia
             </span>
           </div>
-          <h1 style={{ margin: 0, fontSize: 36, fontWeight: 800, lineHeight: 1.1 }}>
+          <h1 className="font-headline text-4xl font-extrabold text-on-surface m-0 leading-tight">
             {data.displayName} Exports
           </h1>
-          <p style={{ margin: '8px 0 0', color: 'rgba(255,255,255,0.5)', fontSize: 15 }}>
+          <p className="font-body text-on-surface-variant text-[15px] mt-2 mb-0">
             Annual export volumes, revenue, royalties, and corporate tax by destination country
           </p>
-          <p style={{ margin: '6px 0 0', color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>
+          <p className="font-body text-on-surface-variant/40 text-xs mt-1.5 mb-0">
             Last updated: {lastUpdated}
           </p>
         </div>
 
         {/* Time range selector */}
-        <div
-          style={{
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(255,255,255,0.07)',
-            borderRadius: 12,
-            padding: '18px 24px',
-            marginBottom: 28,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 24,
-            flexWrap: 'wrap',
-          }}
-        >
-          <div style={{ flexShrink: 0 }}>
-            <div
-              style={{
-                color: 'rgba(255,255,255,0.45)',
-                fontSize: 11,
-                textTransform: 'uppercase',
-                letterSpacing: '0.07em',
-                marginBottom: 4,
-              }}
-            >
+        <div className="bg-surface-container rounded-lg p-[18px_24px] mb-7 flex items-center gap-6 flex-wrap">
+          <div className="shrink-0">
+            <div className="font-body text-on-surface-variant/60 text-[11px] uppercase tracking-wider mb-1">
               Time range
             </div>
-            <div style={{ fontWeight: 700, fontSize: 18 }}>
+            <div className="font-bold text-lg text-on-surface">
               {rangeYears} year{rangeYears > 1 ? 's' : ''}{' '}
-              <span style={{ color: 'rgba(255,255,255,0.35)', fontWeight: 400, fontSize: 14 }}>
+              <span className="text-on-surface-variant/40 font-normal text-sm">
                 ({yearLabel})
               </span>
             </div>
           </div>
-          <div style={{ flex: 1, minWidth: 180 }}>
+          <div className="flex-1 min-w-[180px]">
             <input
               type="range"
               min={1}
               max={maxYears}
               value={rangeYears}
               onChange={(e) => setRangeYears(Number(e.target.value))}
-              style={{ width: '100%', accentColor: accent, cursor: 'pointer' }}
+              className="w-full cursor-pointer"
+              style={{ accentColor: accent }}
               aria-label="Select number of years"
             />
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                color: 'rgba(255,255,255,0.25)',
-                fontSize: 11,
-                marginTop: 2,
-              }}
-            >
+            <div className="flex justify-between text-on-surface-variant/30 text-[11px] mt-0.5">
               <span>1 yr</span>
               <span>{maxYears} yr</span>
             </div>
@@ -338,14 +266,7 @@ export default function ResourceStatPage({
         </div>
 
         {/* KPI cards */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
-            gap: 16,
-            marginBottom: 40,
-          }}
-        >
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4 mb-10">
           <KpiCard
             label="Total export volume"
             value={`${fmt(Math.round(kpis.vol))} ${unit}`}
@@ -373,54 +294,29 @@ export default function ResourceStatPage({
         </div>
 
         {/* Sankey diagram */}
-        <div
-          style={{
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(255,255,255,0.07)',
-            borderRadius: 12,
-            padding: '24px',
-            marginBottom: 40,
-          }}
-        >
-          <h2 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 700 }}>
+        <div className="bg-surface-container rounded-lg p-6 mb-10">
+          <h2 className="font-headline text-lg font-bold text-on-surface m-0 mb-1">
             Export flow by destination
           </h2>
-          <p style={{ margin: '0 0 28px', color: 'rgba(255,255,255,0.4)', fontSize: 13 }}>
+          <p className="font-body text-on-surface-variant/50 text-[13px] m-0 mb-7">
             Total volume ({unit}) from Australia to each destination, {yearLabel}
           </p>
           <SankeyDiagram data={data} rangeYears={rangeYears} accent={accent} />
         </div>
 
         {/* Data sources */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 24 }}>
-          <div
-            style={{
-              color: 'rgba(255,255,255,0.3)',
-              fontSize: 11,
-              textTransform: 'uppercase',
-              letterSpacing: '0.07em',
-              marginBottom: 10,
-            }}
-          >
+        <div className="pt-6 mt-6">
+          <div className="font-body text-on-surface-variant/40 text-[11px] uppercase tracking-wider mb-2.5">
             Data sources
           </div>
-          <ul
-            style={{
-              margin: 0,
-              padding: 0,
-              listStyle: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 5,
-            }}
-          >
+          <ul className="m-0 p-0 list-none flex flex-col gap-1.5">
             {data.sources.map((s, i) => (
-              <li key={i} style={{ color: 'rgba(255,255,255,0.38)', fontSize: 12 }}>
+              <li key={i} className="font-body text-on-surface-variant/50 text-xs">
                 · {s}
               </li>
             ))}
           </ul>
-          <p style={{ margin: '14px 0 0', color: 'rgba(255,255,255,0.22)', fontSize: 11 }}>
+          <p className="font-body text-on-surface-variant/30 text-[11px] mt-3.5 mb-0">
             Cost basis figures are estimated from company annual reports. Corporate tax data is
             estimated. All monetary values in AUD millions.
           </p>
