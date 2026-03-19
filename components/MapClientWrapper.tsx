@@ -9,8 +9,7 @@ import { computeArcsForRange } from '@/lib/computeArcsForRange';
 import ArcTooltip from './ArcTooltip';
 import SidePanel from './SidePanel';
 import MapLegend from './MapLegend';
-import ResourceFilterPanel, { type ResourceEntry } from './ResourceFilterPanel';
-import CountryFilterPanel, { type CountryEntry } from './CountryFilterPanel';
+import TradeFiltersPanel, { type ResourceEntry, type CountryEntry } from './TradeFiltersPanel';
 import YearRangeBar from './YearRangeBar';
 
 // Dynamic import with ssr: false must live in a Client Component
@@ -24,7 +23,7 @@ interface HoverState {
 
 export default function MapClientWrapper() {
   const [datasets, setDatasets] = useState<ResourceData[]>([]);
-  const [resourceMeta, setResourceMeta] = useState<Omit<ResourceEntry, 'active'>[]>([]);
+  const [resourceMeta, setResourceMeta] = useState<Omit<ResourceEntry, 'active' | 'volume'>[]>([]);
   const [activeResources, setActiveResources] = useState<Set<string>>(new Set());
   const [allCountries, setAllCountries] = useState<string[]>([]);
   const [activeCountries, setActiveCountries] = useState<Set<string>>(new Set());
@@ -74,9 +73,18 @@ export default function MapClientWrapper() {
     [datasets, startYear, endYear, activeResources, activeCountries],
   );
 
+  const resourceVolumes = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const arc of filteredArcs) {
+      map[arc.resourceType] = (map[arc.resourceType] ?? 0) + arc.volume;
+    }
+    return map;
+  }, [filteredArcs]);
+
   const resources: ResourceEntry[] = resourceMeta.map((m) => ({
     ...m,
     active: activeResources.has(m.resourceType),
+    volume: resourceVolumes[m.resourceType] ?? 0,
   }));
 
   const countries: CountryEntry[] = allCountries.map((name) => ({
@@ -100,6 +108,22 @@ export default function MapClientWrapper() {
       else next.add(country);
       return next;
     });
+  }, []);
+
+  const handleSelectAllResources = useCallback(() => {
+    setActiveResources(new Set(resourceMeta.map((m) => m.resourceType)));
+  }, [resourceMeta]);
+
+  const handleDeselectAllResources = useCallback(() => {
+    setActiveResources(new Set());
+  }, []);
+
+  const handleSelectAllCountries = useCallback(() => {
+    setActiveCountries(new Set(allCountries));
+  }, [allCountries]);
+
+  const handleDeselectAllCountries = useCallback(() => {
+    setActiveCountries(new Set());
   }, []);
 
   const handleArcHover = useCallback((info: PickingInfo<ArcData>) => {
@@ -142,19 +166,17 @@ export default function MapClientWrapper() {
         <SidePanel arc={selectedArc} onClose={() => setSelectedArc(null)} />
       )}
       <MapLegend />
-      <div
-        style={{
-          position: 'absolute',
-          top: 52,
-          right: 16,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 8,
-          zIndex: 10,
-        }}
-      >
-        <ResourceFilterPanel resources={resources} onToggle={handleToggle} />
-        <CountryFilterPanel countries={countries} onToggle={handleCountryToggle} />
+      <div style={{ position: 'absolute', top: 52, left: 16, zIndex: 10 }}>
+        <TradeFiltersPanel
+          resources={resources}
+          countries={countries}
+          onToggleResource={handleToggle}
+          onToggleCountry={handleCountryToggle}
+          onSelectAllResources={handleSelectAllResources}
+          onDeselectAllResources={handleDeselectAllResources}
+          onSelectAllCountries={handleSelectAllCountries}
+          onDeselectAllCountries={handleDeselectAllCountries}
+        />
       </div>
     </>
   );
