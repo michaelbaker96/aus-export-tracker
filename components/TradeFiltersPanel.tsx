@@ -49,6 +49,7 @@ export default function TradeFiltersPanel({
 
   return (
     <div
+      data-no-dismiss
       className="glass-panel rounded-lg flex flex-col p-3 px-4 w-[185px] max-h-[calc(100vh-80px)]"
       style={{ border: '1px solid rgba(226,229,235,0.07)' }}
     >

@@ -31,7 +31,7 @@ export default function YearRangeBar({
   }
 
   return (
-    <div className="absolute top-0 left-0 right-0 z-[150] bg-surface/90 backdrop-blur-xl flex items-center gap-4 px-5 py-2.5">
+    <div data-no-dismiss className="absolute top-0 left-0 right-0 z-[150] bg-surface/90 backdrop-blur-xl flex items-center gap-4 px-5 py-2.5">
       <div className="font-body text-on-surface-variant text-[10px] uppercase tracking-widest shrink-0">
         Year range
       </div>

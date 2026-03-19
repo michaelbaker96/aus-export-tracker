@@ -53,7 +53,9 @@ export default function SidePanel({ arc, onClose }: SidePanelProps) {
 
   useEffect(() => {
     function handlePointerDown(e: PointerEvent) {
-      if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
+      const target = e.target as Element;
+      if (target.closest('[data-no-dismiss]')) return;
+      if (panelRef.current && !panelRef.current.contains(target)) {
         onClose();
       }
     }
