@@ -16,9 +16,6 @@ export default function ResourceFilterPanel({ resources, onToggle }: Props) {
   return (
     <div
       style={{
-        position: 'absolute',
-        top: 16,
-        right: 16,
         background: 'rgba(8, 12, 20, 0.82)',
         border: '1px solid rgba(255,255,255,0.08)',
         borderRadius: 10,
@@ -27,7 +24,6 @@ export default function ResourceFilterPanel({ resources, onToggle }: Props) {
         display: 'flex',
         flexDirection: 'column',
         gap: 10,
-        zIndex: 10,
         minWidth: 140,
       }}
     >

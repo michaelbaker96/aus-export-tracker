@@ -9,6 +9,7 @@ import ArcTooltip from './ArcTooltip';
 import SidePanel from './SidePanel';
 import MapLegend from './MapLegend';
 import ResourceFilterPanel, { type ResourceEntry } from './ResourceFilterPanel';
+import CountryFilterPanel, { type CountryEntry } from './CountryFilterPanel';
 
 // Dynamic import with ssr: false must live in a Client Component
 const MapView = dynamic(() => import('./MapView'), { ssr: false });
@@ -23,6 +24,8 @@ export default function MapClientWrapper() {
   const [arcs, setArcs] = useState<ArcData[]>([]);
   const [resourceMeta, setResourceMeta] = useState<Omit<ResourceEntry, 'active'>[]>([]);
   const [activeResources, setActiveResources] = useState<Set<string>>(new Set());
+  const [allCountries, setAllCountries] = useState<string[]>([]);
+  const [activeCountries, setActiveCountries] = useState<Set<string>>(new Set());
   const [hover, setHover] = useState<HoverState | null>(null);
   const [selectedArc, setSelectedArc] = useState<ArcData | null>(null);
 
@@ -37,15 +40,19 @@ export default function MapClientWrapper() {
         displayName: d.displayName,
         color: RESOURCE_COLORS[d.resource] ?? '#ffffff',
       }));
+      const allArcs = datasets.flatMap((d) => d.arcs);
+      const countries = [...new Set(allArcs.map((a) => a.destinationCountry))].sort();
       setResourceMeta(meta);
       setActiveResources(new Set(meta.map((m) => m.resourceType)));
-      setArcs(datasets.flatMap((d) => d.arcs));
+      setAllCountries(countries);
+      setActiveCountries(new Set(countries));
+      setArcs(allArcs);
     });
   }, []);
 
   const filteredArcs = useMemo(
-    () => arcs.filter((a) => activeResources.has(a.resourceType)),
-    [arcs, activeResources],
+    () => arcs.filter((a) => activeResources.has(a.resourceType) && activeCountries.has(a.destinationCountry)),
+    [arcs, activeResources, activeCountries],
   );
 
   const resources: ResourceEntry[] = resourceMeta.map((m) => ({
@@ -53,11 +60,25 @@ export default function MapClientWrapper() {
     active: activeResources.has(m.resourceType),
   }));
 
+  const countries: CountryEntry[] = allCountries.map((name) => ({
+    name,
+    active: activeCountries.has(name),
+  }));
+
   const handleToggle = useCallback((resourceType: string) => {
     setActiveResources((prev) => {
       const next = new Set(prev);
       if (next.has(resourceType)) next.delete(resourceType);
       else next.add(resourceType);
+      return next;
+    });
+  }, []);
+
+  const handleCountryToggle = useCallback((country: string) => {
+    setActiveCountries((prev) => {
+      const next = new Set(prev);
+      if (next.has(country)) next.delete(country);
+      else next.add(country);
       return next;
     });
   }, []);
@@ -91,7 +112,20 @@ export default function MapClientWrapper() {
         <SidePanel arc={selectedArc} onClose={() => setSelectedArc(null)} />
       )}
       <MapLegend />
-      <ResourceFilterPanel resources={resources} onToggle={handleToggle} />
+      <div
+        style={{
+          position: 'absolute',
+          top: 16,
+          right: 16,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+          zIndex: 10,
+        }}
+      >
+        <ResourceFilterPanel resources={resources} onToggle={handleToggle} />
+        <CountryFilterPanel countries={countries} onToggle={handleCountryToggle} />
+      </div>
     </>
   );
 }
