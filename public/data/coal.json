@@ -1,0 +1,2582 @@
+{
+  "resource": "coal",
+  "displayName": "Coal",
+  "units": {
+    "volume": "million tonnes (Mt)",
+    "value": "AUD millions"
+  },
+  "lastUpdated": "2025-12-31",
+  "sources": [
+    "UN Comtrade – HS 2701 (Coal), Australia reporter",
+    "Queensland Department of Resources – Coal Royalties",
+    "Queensland Ports Authority – Port Statistics",
+    "Department of Industry, Science and Resources – Resources and Energy Quarterly 2024"
+  ],
+  "arcs": [
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        138.25,
+        36.2
+      ],
+      "destinationCountry": "Japan",
+      "volumeLatestYear": 110.4,
+      "exportValueAUD": 27620,
+      "royaltiesAUD": 2762,
+      "corporateTaxAUD": 2210,
+      "costBasisMinAUD": 8286,
+      "costBasisMaxAUD": 13810
+    },
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        78.9,
+        20.59
+      ],
+      "destinationCountry": "India",
+      "volumeLatestYear": 41.8,
+      "exportValueAUD": 13496,
+      "royaltiesAUD": 1350,
+      "corporateTaxAUD": 1080,
+      "costBasisMinAUD": 4049,
+      "costBasisMaxAUD": 6748
+    },
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        121.47,
+        31.23
+      ],
+      "destinationCountry": "China",
+      "volumeLatestYear": 84,
+      "exportValueAUD": 12736,
+      "royaltiesAUD": 1274,
+      "corporateTaxAUD": 1019,
+      "costBasisMinAUD": 3821,
+      "costBasisMaxAUD": 6368
+    },
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        129.08,
+        35.18
+      ],
+      "destinationCountry": "Rep. of Korea",
+      "volumeLatestYear": 32.1,
+      "exportValueAUD": 8244,
+      "royaltiesAUD": 824,
+      "corporateTaxAUD": 660,
+      "costBasisMinAUD": 2473,
+      "costBasisMaxAUD": 4122
+    },
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        105.85,
+        21.03
+      ],
+      "destinationCountry": "Viet Nam",
+      "volumeLatestYear": 17.8,
+      "exportValueAUD": 3849,
+      "royaltiesAUD": 385,
+      "corporateTaxAUD": 308,
+      "costBasisMinAUD": 1155,
+      "costBasisMaxAUD": 1925
+    },
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        4.9,
+        52.37
+      ],
+      "destinationCountry": "Netherlands",
+      "volumeLatestYear": 11,
+      "exportValueAUD": 3534,
+      "royaltiesAUD": 353,
+      "corporateTaxAUD": 283,
+      "costBasisMinAUD": 1060,
+      "costBasisMaxAUD": 1767
+    },
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        101.69,
+        3.14
+      ],
+      "destinationCountry": "Malaysia",
+      "volumeLatestYear": 7.4,
+      "exportValueAUD": 1569,
+      "royaltiesAUD": 157,
+      "corporateTaxAUD": 126,
+      "costBasisMinAUD": 471,
+      "costBasisMaxAUD": 785
+    },
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        -43.17,
+        -22.91
+      ],
+      "destinationCountry": "Brazil",
+      "volumeLatestYear": 4.7,
+      "exportValueAUD": 1372,
+      "royaltiesAUD": 137,
+      "corporateTaxAUD": 110,
+      "costBasisMinAUD": 412,
+      "costBasisMaxAUD": 686
+    },
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        107,
+        -6.2
+      ],
+      "destinationCountry": "Indonesia",
+      "volumeLatestYear": 6.7,
+      "exportValueAUD": 2068,
+      "royaltiesAUD": 207,
+      "corporateTaxAUD": 165,
+      "costBasisMinAUD": 620,
+      "costBasisMaxAUD": 1034
+    },
+    {
+      "resourceType": "coal",
+      "originCoordinates": [
+        149,
+        -21.5
+      ],
+      "destinationCoordinates": [
+        2.35,
+        48.86
+      ],
+      "destinationCountry": "France",
+      "volumeLatestYear": 2.9,
+      "exportValueAUD": 931,
+      "royaltiesAUD": 93,
+      "corporateTaxAUD": 74,
+      "costBasisMinAUD": 279,
+      "costBasisMaxAUD": 466
+    }
+  ],
+  "years": [
+    {
+      "year": 2014,
+      "totalVolume": 356.8,
+      "totalValue": 35382,
+      "totalRoyalties": 3538,
+      "totalCorporateTax": 2831,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 119.7,
+          "value": 11924,
+          "royalties": 1192,
+          "tax": 954
+        },
+        {
+          "country": "China",
+          "volume": 93.4,
+          "value": 8426,
+          "royalties": 843,
+          "tax": 674
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 54.9,
+          "value": 5155,
+          "royalties": 516,
+          "tax": 412
+        },
+        {
+          "country": "India",
+          "volume": 46.9,
+          "value": 5243,
+          "royalties": 524,
+          "tax": 419
+        },
+        {
+          "country": "Netherlands",
+          "volume": 7.8,
+          "value": 968,
+          "royalties": 97,
+          "tax": 77
+        },
+        {
+          "country": "Malaysia",
+          "volume": 6,
+          "value": 483,
+          "royalties": 48,
+          "tax": 39
+        },
+        {
+          "country": "Brazil",
+          "volume": 4.7,
+          "value": 539,
+          "royalties": 54,
+          "tax": 43
+        },
+        {
+          "country": "Thailand",
+          "volume": 3.9,
+          "value": 279,
+          "royalties": 28,
+          "tax": 22
+        },
+        {
+          "country": "France",
+          "volume": 3.2,
+          "value": 409,
+          "royalties": 41,
+          "tax": 33
+        },
+        {
+          "country": "Mexico",
+          "volume": 2.4,
+          "value": 261,
+          "royalties": 26,
+          "tax": 21
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 1.8,
+          "value": 238,
+          "royalties": 24,
+          "tax": 19
+        },
+        {
+          "country": "Indonesia",
+          "volume": 1.5,
+          "value": 181,
+          "royalties": 18,
+          "tax": 14
+        },
+        {
+          "country": "Poland",
+          "volume": 1.3,
+          "value": 173,
+          "royalties": 17,
+          "tax": 14
+        },
+        {
+          "country": "Spain",
+          "volume": 1.2,
+          "value": 158,
+          "royalties": 16,
+          "tax": 13
+        },
+        {
+          "country": "Sweden",
+          "volume": 1.1,
+          "value": 137,
+          "royalties": 14,
+          "tax": 11
+        },
+        {
+          "country": "Chile",
+          "volume": 0.9,
+          "value": 87,
+          "royalties": 9,
+          "tax": 7
+        },
+        {
+          "country": "South Africa",
+          "volume": 0.8,
+          "value": 113,
+          "royalties": 11,
+          "tax": 9
+        },
+        {
+          "country": "Germany",
+          "volume": 0.7,
+          "value": 93,
+          "royalties": 9,
+          "tax": 7
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 0.7,
+          "value": 64,
+          "royalties": 6,
+          "tax": 5
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.7,
+          "value": 82,
+          "royalties": 8,
+          "tax": 7
+        },
+        {
+          "country": "Italy",
+          "volume": 0.7,
+          "value": 90,
+          "royalties": 9,
+          "tax": 7
+        },
+        {
+          "country": "Türkiye",
+          "volume": 0.6,
+          "value": 76,
+          "royalties": 8,
+          "tax": 6
+        },
+        {
+          "country": "Ukraine",
+          "volume": 0.6,
+          "value": 83,
+          "royalties": 8,
+          "tax": 7
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 0.5,
+          "value": 72,
+          "royalties": 7,
+          "tax": 6
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.5,
+          "value": 36,
+          "royalties": 4,
+          "tax": 3
+        },
+        {
+          "country": "Philippines",
+          "volume": 0.1,
+          "value": 5,
+          "royalties": 0,
+          "tax": 0
+        },
+        {
+          "country": "Belgium",
+          "volume": 0,
+          "value": 5,
+          "royalties": 1,
+          "tax": 0
+        },
+        {
+          "country": "Singapore",
+          "volume": 0,
+          "value": 0,
+          "royalties": 0,
+          "tax": 0
+        }
+      ]
+    },
+    {
+      "year": 2015,
+      "totalVolume": 356.7,
+      "totalValue": 35017,
+      "totalRoyalties": 3502,
+      "totalCorporateTax": 2801,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 125.7,
+          "value": 12249,
+          "royalties": 1225,
+          "tax": 980
+        },
+        {
+          "country": "China",
+          "volume": 71.2,
+          "value": 6329,
+          "royalties": 633,
+          "tax": 506
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 59.7,
+          "value": 5209,
+          "royalties": 521,
+          "tax": 417
+        },
+        {
+          "country": "India",
+          "volume": 47.8,
+          "value": 5469,
+          "royalties": 547,
+          "tax": 438
+        },
+        {
+          "country": "Netherlands",
+          "volume": 7,
+          "value": 888,
+          "royalties": 89,
+          "tax": 71
+        },
+        {
+          "country": "Brazil",
+          "volume": 6.6,
+          "value": 765,
+          "royalties": 76,
+          "tax": 61
+        },
+        {
+          "country": "Malaysia",
+          "volume": 6.2,
+          "value": 528,
+          "royalties": 53,
+          "tax": 42
+        },
+        {
+          "country": "Thailand",
+          "volume": 3.8,
+          "value": 318,
+          "royalties": 32,
+          "tax": 25
+        },
+        {
+          "country": "France",
+          "volume": 3.7,
+          "value": 464,
+          "royalties": 46,
+          "tax": 37
+        },
+        {
+          "country": "Mexico",
+          "volume": 3.6,
+          "value": 283,
+          "royalties": 28,
+          "tax": 23
+        },
+        {
+          "country": "Indonesia",
+          "volume": 2.2,
+          "value": 255,
+          "royalties": 26,
+          "tax": 20
+        },
+        {
+          "country": "Chile",
+          "volume": 2.2,
+          "value": 183,
+          "royalties": 18,
+          "tax": 15
+        },
+        {
+          "country": "Türkiye",
+          "volume": 2,
+          "value": 246,
+          "royalties": 25,
+          "tax": 20
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 1.7,
+          "value": 223,
+          "royalties": 22,
+          "tax": 18
+        },
+        {
+          "country": "Poland",
+          "volume": 1.4,
+          "value": 181,
+          "royalties": 18,
+          "tax": 14
+        },
+        {
+          "country": "Spain",
+          "volume": 1.3,
+          "value": 159,
+          "royalties": 16,
+          "tax": 13
+        },
+        {
+          "country": "Sweden",
+          "volume": 1.3,
+          "value": 175,
+          "royalties": 18,
+          "tax": 14
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 1.3,
+          "value": 135,
+          "royalties": 13,
+          "tax": 11
+        },
+        {
+          "country": "Belgium",
+          "volume": 1.3,
+          "value": 166,
+          "royalties": 17,
+          "tax": 13
+        },
+        {
+          "country": "Germany",
+          "volume": 1.2,
+          "value": 154,
+          "royalties": 15,
+          "tax": 12
+        },
+        {
+          "country": "Ukraine",
+          "volume": 1,
+          "value": 132,
+          "royalties": 13,
+          "tax": 11
+        },
+        {
+          "country": "South Africa",
+          "volume": 0.9,
+          "value": 113,
+          "royalties": 11,
+          "tax": 9
+        },
+        {
+          "country": "Italy",
+          "volume": 0.8,
+          "value": 115,
+          "royalties": 11,
+          "tax": 9
+        },
+        {
+          "country": "Philippines",
+          "volume": 0.8,
+          "value": 66,
+          "royalties": 7,
+          "tax": 5
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.8,
+          "value": 99,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 0.8,
+          "value": 73,
+          "royalties": 7,
+          "tax": 6
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.5,
+          "value": 41,
+          "royalties": 4,
+          "tax": 3
+        },
+        {
+          "country": "Singapore",
+          "volume": 0,
+          "value": 0,
+          "royalties": 0,
+          "tax": 0
+        }
+      ]
+    },
+    {
+      "year": 2016,
+      "totalVolume": 353.2,
+      "totalValue": 36538,
+      "totalRoyalties": 3654,
+      "totalCorporateTax": 2923,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 121.9,
+          "value": 11739,
+          "royalties": 1174,
+          "tax": 939
+        },
+        {
+          "country": "China",
+          "volume": 75.2,
+          "value": 7562,
+          "royalties": 756,
+          "tax": 605
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 51.1,
+          "value": 4716,
+          "royalties": 472,
+          "tax": 377
+        },
+        {
+          "country": "India",
+          "volume": 48.3,
+          "value": 6082,
+          "royalties": 608,
+          "tax": 487
+        },
+        {
+          "country": "Netherlands",
+          "volume": 9.5,
+          "value": 1298,
+          "royalties": 130,
+          "tax": 104
+        },
+        {
+          "country": "Malaysia",
+          "volume": 6.8,
+          "value": 558,
+          "royalties": 56,
+          "tax": 45
+        },
+        {
+          "country": "Brazil",
+          "volume": 6.5,
+          "value": 811,
+          "royalties": 81,
+          "tax": 65
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 4,
+          "value": 388,
+          "royalties": 39,
+          "tax": 31
+        },
+        {
+          "country": "France",
+          "volume": 3.9,
+          "value": 564,
+          "royalties": 56,
+          "tax": 45
+        },
+        {
+          "country": "Chile",
+          "volume": 3.6,
+          "value": 328,
+          "royalties": 33,
+          "tax": 26
+        },
+        {
+          "country": "Thailand",
+          "volume": 3.6,
+          "value": 282,
+          "royalties": 28,
+          "tax": 23
+        },
+        {
+          "country": "Mexico",
+          "volume": 2.7,
+          "value": 177,
+          "royalties": 18,
+          "tax": 14
+        },
+        {
+          "country": "Indonesia",
+          "volume": 2.7,
+          "value": 294,
+          "royalties": 29,
+          "tax": 24
+        },
+        {
+          "country": "Türkiye",
+          "volume": 1.6,
+          "value": 210,
+          "royalties": 21,
+          "tax": 17
+        },
+        {
+          "country": "Poland",
+          "volume": 1.5,
+          "value": 217,
+          "royalties": 22,
+          "tax": 17
+        },
+        {
+          "country": "Philippines",
+          "volume": 1.4,
+          "value": 127,
+          "royalties": 13,
+          "tax": 10
+        },
+        {
+          "country": "Sweden",
+          "volume": 1.4,
+          "value": 193,
+          "royalties": 19,
+          "tax": 15
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 1.2,
+          "value": 161,
+          "royalties": 16,
+          "tax": 13
+        },
+        {
+          "country": "Spain",
+          "volume": 1.2,
+          "value": 169,
+          "royalties": 17,
+          "tax": 13
+        },
+        {
+          "country": "South Africa",
+          "volume": 1.1,
+          "value": 164,
+          "royalties": 16,
+          "tax": 13
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 1.1,
+          "value": 97,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "Italy",
+          "volume": 0.8,
+          "value": 120,
+          "royalties": 12,
+          "tax": 10
+        },
+        {
+          "country": "Germany",
+          "volume": 0.8,
+          "value": 98,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.6,
+          "value": 87,
+          "royalties": 9,
+          "tax": 7
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.4,
+          "value": 31,
+          "royalties": 3,
+          "tax": 2
+        },
+        {
+          "country": "Ukraine",
+          "volume": 0.3,
+          "value": 37,
+          "royalties": 4,
+          "tax": 3
+        },
+        {
+          "country": "Belgium",
+          "volume": 0.2,
+          "value": 27,
+          "royalties": 3,
+          "tax": 2
+        },
+        {
+          "country": "Singapore",
+          "volume": 0,
+          "value": 0,
+          "royalties": 0,
+          "tax": 0
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "totalVolume": 340,
+      "totalValue": 52458,
+      "totalRoyalties": 5246,
+      "totalCorporateTax": 4197,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 117.4,
+          "value": 16431,
+          "royalties": 1643,
+          "tax": 1315
+        },
+        {
+          "country": "China",
+          "volume": 83.4,
+          "value": 11743,
+          "royalties": 1174,
+          "tax": 939
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 48.8,
+          "value": 6854,
+          "royalties": 685,
+          "tax": 548
+        },
+        {
+          "country": "India",
+          "volume": 44.3,
+          "value": 9143,
+          "royalties": 914,
+          "tax": 731
+        },
+        {
+          "country": "Netherlands",
+          "volume": 7,
+          "value": 1722,
+          "royalties": 172,
+          "tax": 138
+        },
+        {
+          "country": "Malaysia",
+          "volume": 6.3,
+          "value": 713,
+          "royalties": 71,
+          "tax": 57
+        },
+        {
+          "country": "Brazil",
+          "volume": 5.8,
+          "value": 1246,
+          "royalties": 125,
+          "tax": 100
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 4,
+          "value": 614,
+          "royalties": 61,
+          "tax": 49
+        },
+        {
+          "country": "Thailand",
+          "volume": 3.9,
+          "value": 360,
+          "royalties": 36,
+          "tax": 29
+        },
+        {
+          "country": "Indonesia",
+          "volume": 3.1,
+          "value": 442,
+          "royalties": 44,
+          "tax": 35
+        },
+        {
+          "country": "France",
+          "volume": 2.8,
+          "value": 678,
+          "royalties": 68,
+          "tax": 54
+        },
+        {
+          "country": "Chile",
+          "volume": 2.2,
+          "value": 277,
+          "royalties": 28,
+          "tax": 22
+        },
+        {
+          "country": "Philippines",
+          "volume": 1.7,
+          "value": 191,
+          "royalties": 19,
+          "tax": 15
+        },
+        {
+          "country": "South Africa",
+          "volume": 1.2,
+          "value": 311,
+          "royalties": 31,
+          "tax": 25
+        },
+        {
+          "country": "Poland",
+          "volume": 1.2,
+          "value": 293,
+          "royalties": 29,
+          "tax": 23
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 1,
+          "value": 122,
+          "royalties": 12,
+          "tax": 10
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 0.9,
+          "value": 199,
+          "royalties": 20,
+          "tax": 16
+        },
+        {
+          "country": "Belgium",
+          "volume": 0.9,
+          "value": 201,
+          "royalties": 20,
+          "tax": 16
+        },
+        {
+          "country": "Spain",
+          "volume": 0.9,
+          "value": 223,
+          "royalties": 22,
+          "tax": 18
+        },
+        {
+          "country": "Sweden",
+          "volume": 0.8,
+          "value": 195,
+          "royalties": 20,
+          "tax": 16
+        },
+        {
+          "country": "Türkiye",
+          "volume": 0.6,
+          "value": 123,
+          "royalties": 12,
+          "tax": 10
+        },
+        {
+          "country": "Germany",
+          "volume": 0.4,
+          "value": 100,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.4,
+          "value": 91,
+          "royalties": 9,
+          "tax": 7
+        },
+        {
+          "country": "Italy",
+          "volume": 0.3,
+          "value": 103,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.3,
+          "value": 32,
+          "royalties": 3,
+          "tax": 3
+        },
+        {
+          "country": "Ukraine",
+          "volume": 0.2,
+          "value": 50,
+          "royalties": 5,
+          "tax": 4
+        },
+        {
+          "country": "Singapore",
+          "volume": 0,
+          "value": 0,
+          "royalties": 0,
+          "tax": 0
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "totalVolume": 352.9,
+      "totalValue": 61001,
+      "totalRoyalties": 6100,
+      "totalCorporateTax": 4880,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 116.7,
+          "value": 18921,
+          "royalties": 1892,
+          "tax": 1514
+        },
+        {
+          "country": "China",
+          "volume": 89.2,
+          "value": 14121,
+          "royalties": 1412,
+          "tax": 1130
+        },
+        {
+          "country": "India",
+          "volume": 50.1,
+          "value": 10893,
+          "royalties": 1089,
+          "tax": 871
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 47.9,
+          "value": 7315,
+          "royalties": 731,
+          "tax": 585
+        },
+        {
+          "country": "Netherlands",
+          "volume": 7.5,
+          "value": 1853,
+          "royalties": 185,
+          "tax": 148
+        },
+        {
+          "country": "Malaysia",
+          "volume": 7,
+          "value": 1053,
+          "royalties": 105,
+          "tax": 84
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 7,
+          "value": 1170,
+          "royalties": 117,
+          "tax": 94
+        },
+        {
+          "country": "Brazil",
+          "volume": 5.1,
+          "value": 1138,
+          "royalties": 114,
+          "tax": 91
+        },
+        {
+          "country": "Indonesia",
+          "volume": 4.1,
+          "value": 742,
+          "royalties": 74,
+          "tax": 59
+        },
+        {
+          "country": "Thailand",
+          "volume": 3.4,
+          "value": 349,
+          "royalties": 35,
+          "tax": 28
+        },
+        {
+          "country": "France",
+          "volume": 2.9,
+          "value": 778,
+          "royalties": 78,
+          "tax": 62
+        },
+        {
+          "country": "Poland",
+          "volume": 1.5,
+          "value": 418,
+          "royalties": 42,
+          "tax": 33
+        },
+        {
+          "country": "Spain",
+          "volume": 1.4,
+          "value": 338,
+          "royalties": 34,
+          "tax": 27
+        },
+        {
+          "country": "Philippines",
+          "volume": 1.3,
+          "value": 187,
+          "royalties": 19,
+          "tax": 15
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 1.2,
+          "value": 169,
+          "royalties": 17,
+          "tax": 14
+        },
+        {
+          "country": "Sweden",
+          "volume": 1,
+          "value": 275,
+          "royalties": 27,
+          "tax": 22
+        },
+        {
+          "country": "South Africa",
+          "volume": 1,
+          "value": 258,
+          "royalties": 26,
+          "tax": 21
+        },
+        {
+          "country": "Chile",
+          "volume": 1,
+          "value": 179,
+          "royalties": 18,
+          "tax": 14
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 1,
+          "value": 207,
+          "royalties": 21,
+          "tax": 17
+        },
+        {
+          "country": "Germany",
+          "volume": 0.7,
+          "value": 192,
+          "royalties": 19,
+          "tax": 15
+        },
+        {
+          "country": "Italy",
+          "volume": 0.6,
+          "value": 163,
+          "royalties": 16,
+          "tax": 13
+        },
+        {
+          "country": "Türkiye",
+          "volume": 0.4,
+          "value": 104,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.4,
+          "value": 86,
+          "royalties": 9,
+          "tax": 7
+        },
+        {
+          "country": "Ukraine",
+          "volume": 0.2,
+          "value": 58,
+          "royalties": 6,
+          "tax": 5
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.2,
+          "value": 18,
+          "royalties": 2,
+          "tax": 1
+        },
+        {
+          "country": "Singapore",
+          "volume": 0.2,
+          "value": 13,
+          "royalties": 1,
+          "tax": 1
+        },
+        {
+          "country": "Belgium",
+          "volume": 0,
+          "value": 5,
+          "royalties": 1,
+          "tax": 0
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "totalVolume": 360.7,
+      "totalValue": 57989,
+      "totalRoyalties": 5799,
+      "totalCorporateTax": 4639,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 110.2,
+          "value": 16884,
+          "royalties": 1688,
+          "tax": 1351
+        },
+        {
+          "country": "China",
+          "volume": 92.4,
+          "value": 13619,
+          "royalties": 1362,
+          "tax": 1090
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 50.8,
+          "value": 7067,
+          "royalties": 707,
+          "tax": 565
+        },
+        {
+          "country": "India",
+          "volume": 49.6,
+          "value": 10423,
+          "royalties": 1042,
+          "tax": 834
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 16.1,
+          "value": 2054,
+          "royalties": 205,
+          "tax": 164
+        },
+        {
+          "country": "Malaysia",
+          "volume": 8,
+          "value": 1070,
+          "royalties": 107,
+          "tax": 86
+        },
+        {
+          "country": "Netherlands",
+          "volume": 6.5,
+          "value": 1556,
+          "royalties": 156,
+          "tax": 124
+        },
+        {
+          "country": "Indonesia",
+          "volume": 4.2,
+          "value": 711,
+          "royalties": 71,
+          "tax": 57
+        },
+        {
+          "country": "Thailand",
+          "volume": 4.1,
+          "value": 431,
+          "royalties": 43,
+          "tax": 34
+        },
+        {
+          "country": "Brazil",
+          "volume": 3.5,
+          "value": 721,
+          "royalties": 72,
+          "tax": 58
+        },
+        {
+          "country": "France",
+          "volume": 2.2,
+          "value": 580,
+          "royalties": 58,
+          "tax": 46
+        },
+        {
+          "country": "Poland",
+          "volume": 1.7,
+          "value": 458,
+          "royalties": 46,
+          "tax": 37
+        },
+        {
+          "country": "Belgium",
+          "volume": 1.4,
+          "value": 356,
+          "royalties": 36,
+          "tax": 29
+        },
+        {
+          "country": "Sweden",
+          "volume": 1.2,
+          "value": 357,
+          "royalties": 36,
+          "tax": 29
+        },
+        {
+          "country": "Chile",
+          "volume": 1.2,
+          "value": 183,
+          "royalties": 18,
+          "tax": 15
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 1.2,
+          "value": 165,
+          "royalties": 17,
+          "tax": 13
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 1.1,
+          "value": 242,
+          "royalties": 24,
+          "tax": 19
+        },
+        {
+          "country": "South Africa",
+          "volume": 1.1,
+          "value": 266,
+          "royalties": 27,
+          "tax": 21
+        },
+        {
+          "country": "Philippines",
+          "volume": 0.9,
+          "value": 106,
+          "royalties": 11,
+          "tax": 9
+        },
+        {
+          "country": "Türkiye",
+          "volume": 0.9,
+          "value": 207,
+          "royalties": 21,
+          "tax": 17
+        },
+        {
+          "country": "Germany",
+          "volume": 0.6,
+          "value": 160,
+          "royalties": 16,
+          "tax": 13
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.4,
+          "value": 34,
+          "royalties": 3,
+          "tax": 3
+        },
+        {
+          "country": "Italy",
+          "volume": 0.3,
+          "value": 89,
+          "royalties": 9,
+          "tax": 7
+        },
+        {
+          "country": "Ukraine",
+          "volume": 0.3,
+          "value": 70,
+          "royalties": 7,
+          "tax": 6
+        },
+        {
+          "country": "Spain",
+          "volume": 0.3,
+          "value": 87,
+          "royalties": 9,
+          "tax": 7
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.2,
+          "value": 62,
+          "royalties": 6,
+          "tax": 5
+        },
+        {
+          "country": "Mexico",
+          "volume": 0.1,
+          "value": 20,
+          "royalties": 2,
+          "tax": 2
+        },
+        {
+          "country": "Singapore",
+          "volume": 0.1,
+          "value": 10,
+          "royalties": 1,
+          "tax": 1
+        }
+      ]
+    },
+    {
+      "year": 2020,
+      "totalVolume": 337,
+      "totalValue": 39996,
+      "totalRoyalties": 4000,
+      "totalCorporateTax": 3200,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 104.2,
+          "value": 11767,
+          "royalties": 1177,
+          "tax": 941
+        },
+        {
+          "country": "China",
+          "volume": 73.7,
+          "value": 9013,
+          "royalties": 901,
+          "tax": 721
+        },
+        {
+          "country": "India",
+          "volume": 52.8,
+          "value": 7210,
+          "royalties": 721,
+          "tax": 577
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 46.1,
+          "value": 4723,
+          "royalties": 472,
+          "tax": 378
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 20.8,
+          "value": 2069,
+          "royalties": 207,
+          "tax": 165
+        },
+        {
+          "country": "Malaysia",
+          "volume": 7.7,
+          "value": 768,
+          "royalties": 77,
+          "tax": 61
+        },
+        {
+          "country": "Netherlands",
+          "volume": 5.6,
+          "value": 985,
+          "royalties": 98,
+          "tax": 79
+        },
+        {
+          "country": "Indonesia",
+          "volume": 5.2,
+          "value": 604,
+          "royalties": 60,
+          "tax": 48
+        },
+        {
+          "country": "Thailand",
+          "volume": 4.3,
+          "value": 429,
+          "royalties": 43,
+          "tax": 34
+        },
+        {
+          "country": "Brazil",
+          "volume": 3.7,
+          "value": 521,
+          "royalties": 52,
+          "tax": 42
+        },
+        {
+          "country": "Chile",
+          "volume": 2.6,
+          "value": 226,
+          "royalties": 23,
+          "tax": 18
+        },
+        {
+          "country": "France",
+          "volume": 1.8,
+          "value": 342,
+          "royalties": 34,
+          "tax": 27
+        },
+        {
+          "country": "Türkiye",
+          "volume": 1.1,
+          "value": 114,
+          "royalties": 11,
+          "tax": 9
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 1.1,
+          "value": 134,
+          "royalties": 13,
+          "tax": 11
+        },
+        {
+          "country": "Sweden",
+          "volume": 1.1,
+          "value": 213,
+          "royalties": 21,
+          "tax": 17
+        },
+        {
+          "country": "Poland",
+          "volume": 1.1,
+          "value": 214,
+          "royalties": 21,
+          "tax": 17
+        },
+        {
+          "country": "South Africa",
+          "volume": 0.8,
+          "value": 148,
+          "royalties": 15,
+          "tax": 12
+        },
+        {
+          "country": "Belgium",
+          "volume": 0.6,
+          "value": 115,
+          "royalties": 12,
+          "tax": 9
+        },
+        {
+          "country": "Germany",
+          "volume": 0.6,
+          "value": 103,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 0.5,
+          "value": 82,
+          "royalties": 8,
+          "tax": 7
+        },
+        {
+          "country": "Italy",
+          "volume": 0.5,
+          "value": 83,
+          "royalties": 8,
+          "tax": 7
+        },
+        {
+          "country": "Philippines",
+          "volume": 0.4,
+          "value": 30,
+          "royalties": 3,
+          "tax": 2
+        },
+        {
+          "country": "Spain",
+          "volume": 0.3,
+          "value": 44,
+          "royalties": 4,
+          "tax": 3
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.2,
+          "value": 38,
+          "royalties": 4,
+          "tax": 3
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.2,
+          "value": 9,
+          "royalties": 1,
+          "tax": 1
+        },
+        {
+          "country": "Singapore",
+          "volume": 0.1,
+          "value": 10,
+          "royalties": 1,
+          "tax": 1
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "totalVolume": 324.7,
+      "totalValue": 55685,
+      "totalRoyalties": 5569,
+      "totalCorporateTax": 4455,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 120.1,
+          "value": 20288,
+          "royalties": 2029,
+          "tax": 1623
+        },
+        {
+          "country": "India",
+          "volume": 72.3,
+          "value": 13148,
+          "royalties": 1315,
+          "tax": 1052
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 61.3,
+          "value": 9284,
+          "royalties": 928,
+          "tax": 743
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 15.7,
+          "value": 2394,
+          "royalties": 239,
+          "tax": 192
+        },
+        {
+          "country": "Indonesia",
+          "volume": 8.8,
+          "value": 1585,
+          "royalties": 159,
+          "tax": 127
+        },
+        {
+          "country": "Netherlands",
+          "volume": 8,
+          "value": 1838,
+          "royalties": 184,
+          "tax": 147
+        },
+        {
+          "country": "Thailand",
+          "volume": 7.5,
+          "value": 772,
+          "royalties": 77,
+          "tax": 62
+        },
+        {
+          "country": "Malaysia",
+          "volume": 6.8,
+          "value": 1229,
+          "royalties": 123,
+          "tax": 98
+        },
+        {
+          "country": "Brazil",
+          "volume": 5.6,
+          "value": 1292,
+          "royalties": 129,
+          "tax": 103
+        },
+        {
+          "country": "Türkiye",
+          "volume": 4.1,
+          "value": 873,
+          "royalties": 87,
+          "tax": 70
+        },
+        {
+          "country": "Chile",
+          "volume": 2.6,
+          "value": 348,
+          "royalties": 35,
+          "tax": 28
+        },
+        {
+          "country": "France",
+          "volume": 2.3,
+          "value": 598,
+          "royalties": 60,
+          "tax": 48
+        },
+        {
+          "country": "Poland",
+          "volume": 1.4,
+          "value": 290,
+          "royalties": 29,
+          "tax": 23
+        },
+        {
+          "country": "Sweden",
+          "volume": 1,
+          "value": 217,
+          "royalties": 22,
+          "tax": 17
+        },
+        {
+          "country": "South Africa",
+          "volume": 1,
+          "value": 261,
+          "royalties": 26,
+          "tax": 21
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 0.9,
+          "value": 180,
+          "royalties": 18,
+          "tax": 14
+        },
+        {
+          "country": "Spain",
+          "volume": 0.8,
+          "value": 203,
+          "royalties": 20,
+          "tax": 16
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.8,
+          "value": 136,
+          "royalties": 14,
+          "tax": 11
+        },
+        {
+          "country": "Singapore",
+          "volume": 0.7,
+          "value": 64,
+          "royalties": 6,
+          "tax": 5
+        },
+        {
+          "country": "Germany",
+          "volume": 0.7,
+          "value": 143,
+          "royalties": 14,
+          "tax": 11
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 0.5,
+          "value": 104,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "Italy",
+          "volume": 0.4,
+          "value": 108,
+          "royalties": 11,
+          "tax": 9
+        },
+        {
+          "country": "Philippines",
+          "volume": 0.4,
+          "value": 64,
+          "royalties": 6,
+          "tax": 5
+        },
+        {
+          "country": "Belgium",
+          "volume": 0.3,
+          "value": 95,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "Ukraine",
+          "volume": 0.3,
+          "value": 95,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.2,
+          "value": 52,
+          "royalties": 5,
+          "tax": 4
+        },
+        {
+          "country": "China",
+          "volume": 0.2,
+          "value": 25,
+          "royalties": 2,
+          "tax": 2
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "totalVolume": 303.4,
+      "totalValue": 125838,
+      "totalRoyalties": 12584,
+      "totalCorporateTax": 10067,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 126.2,
+          "value": 56382,
+          "royalties": 5638,
+          "tax": 4511
+        },
+        {
+          "country": "India",
+          "volume": 54.9,
+          "value": 22614,
+          "royalties": 2261,
+          "tax": 1809
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 46.2,
+          "value": 17025,
+          "royalties": 1702,
+          "tax": 1362
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 18.2,
+          "value": 6258,
+          "royalties": 626,
+          "tax": 501
+        },
+        {
+          "country": "Netherlands",
+          "volume": 11.6,
+          "value": 5321,
+          "royalties": 532,
+          "tax": 426
+        },
+        {
+          "country": "Malaysia",
+          "volume": 7.5,
+          "value": 3537,
+          "royalties": 354,
+          "tax": 283
+        },
+        {
+          "country": "Indonesia",
+          "volume": 5.7,
+          "value": 2435,
+          "royalties": 244,
+          "tax": 195
+        },
+        {
+          "country": "Thailand",
+          "volume": 5.5,
+          "value": 724,
+          "royalties": 72,
+          "tax": 58
+        },
+        {
+          "country": "Brazil",
+          "volume": 4.2,
+          "value": 2116,
+          "royalties": 212,
+          "tax": 169
+        },
+        {
+          "country": "Poland",
+          "volume": 3.3,
+          "value": 1256,
+          "royalties": 126,
+          "tax": 100
+        },
+        {
+          "country": "France",
+          "volume": 2.8,
+          "value": 1385,
+          "royalties": 139,
+          "tax": 111
+        },
+        {
+          "country": "Chile",
+          "volume": 2.7,
+          "value": 882,
+          "royalties": 88,
+          "tax": 71
+        },
+        {
+          "country": "Türkiye",
+          "volume": 2.6,
+          "value": 996,
+          "royalties": 100,
+          "tax": 80
+        },
+        {
+          "country": "Singapore",
+          "volume": 2,
+          "value": 269,
+          "royalties": 27,
+          "tax": 22
+        },
+        {
+          "country": "Spain",
+          "volume": 1.7,
+          "value": 823,
+          "royalties": 82,
+          "tax": 66
+        },
+        {
+          "country": "Sweden",
+          "volume": 1.4,
+          "value": 705,
+          "royalties": 70,
+          "tax": 56
+        },
+        {
+          "country": "Belgium",
+          "volume": 1.2,
+          "value": 457,
+          "royalties": 46,
+          "tax": 37
+        },
+        {
+          "country": "Germany",
+          "volume": 1.2,
+          "value": 555,
+          "royalties": 55,
+          "tax": 44
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 1,
+          "value": 538,
+          "royalties": 54,
+          "tax": 43
+        },
+        {
+          "country": "Argentina",
+          "volume": 1,
+          "value": 506,
+          "royalties": 51,
+          "tax": 40
+        },
+        {
+          "country": "Italy",
+          "volume": 0.6,
+          "value": 349,
+          "royalties": 35,
+          "tax": 28
+        },
+        {
+          "country": "South Africa",
+          "volume": 0.6,
+          "value": 278,
+          "royalties": 28,
+          "tax": 22
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 0.6,
+          "value": 230,
+          "royalties": 23,
+          "tax": 18
+        },
+        {
+          "country": "Philippines",
+          "volume": 0.4,
+          "value": 105,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.2,
+          "value": 85,
+          "royalties": 8,
+          "tax": 7
+        },
+        {
+          "country": "Mexico",
+          "volume": 0,
+          "value": 12,
+          "royalties": 1,
+          "tax": 1
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "totalVolume": 320.5,
+      "totalValue": 92087,
+      "totalRoyalties": 9209,
+      "totalCorporateTax": 7367,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 106.9,
+          "value": 35575,
+          "royalties": 3558,
+          "tax": 2846
+        },
+        {
+          "country": "China",
+          "volume": 55.6,
+          "value": 9253,
+          "royalties": 925,
+          "tax": 740
+        },
+        {
+          "country": "India",
+          "volume": 49.2,
+          "value": 16569,
+          "royalties": 1657,
+          "tax": 1326
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 35.7,
+          "value": 10456,
+          "royalties": 1046,
+          "tax": 837
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 20.1,
+          "value": 4434,
+          "royalties": 443,
+          "tax": 355
+        },
+        {
+          "country": "Netherlands",
+          "volume": 9.6,
+          "value": 3406,
+          "royalties": 341,
+          "tax": 272
+        },
+        {
+          "country": "Malaysia",
+          "volume": 5.9,
+          "value": 1803,
+          "royalties": 180,
+          "tax": 144
+        },
+        {
+          "country": "Indonesia",
+          "volume": 5.8,
+          "value": 1891,
+          "royalties": 189,
+          "tax": 151
+        },
+        {
+          "country": "Singapore",
+          "volume": 5.3,
+          "value": 539,
+          "royalties": 54,
+          "tax": 43
+        },
+        {
+          "country": "Brazil",
+          "volume": 4.7,
+          "value": 1664,
+          "royalties": 166,
+          "tax": 133
+        },
+        {
+          "country": "Thailand",
+          "volume": 4.5,
+          "value": 603,
+          "royalties": 60,
+          "tax": 48
+        },
+        {
+          "country": "France",
+          "volume": 3,
+          "value": 1179,
+          "royalties": 118,
+          "tax": 94
+        },
+        {
+          "country": "Türkiye",
+          "volume": 2.4,
+          "value": 769,
+          "royalties": 77,
+          "tax": 62
+        },
+        {
+          "country": "Chile",
+          "volume": 2.2,
+          "value": 476,
+          "royalties": 48,
+          "tax": 38
+        },
+        {
+          "country": "Belgium",
+          "volume": 1.6,
+          "value": 642,
+          "royalties": 64,
+          "tax": 51
+        },
+        {
+          "country": "Germany",
+          "volume": 1.5,
+          "value": 561,
+          "royalties": 56,
+          "tax": 45
+        },
+        {
+          "country": "Spain",
+          "volume": 1.2,
+          "value": 496,
+          "royalties": 50,
+          "tax": 40
+        },
+        {
+          "country": "Poland",
+          "volume": 1.1,
+          "value": 491,
+          "royalties": 49,
+          "tax": 39
+        },
+        {
+          "country": "Sweden",
+          "volume": 1.1,
+          "value": 393,
+          "royalties": 39,
+          "tax": 31
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 1,
+          "value": 219,
+          "royalties": 22,
+          "tax": 18
+        },
+        {
+          "country": "South Africa",
+          "volume": 0.7,
+          "value": 272,
+          "royalties": 27,
+          "tax": 22
+        },
+        {
+          "country": "Italy",
+          "volume": 0.3,
+          "value": 108,
+          "royalties": 11,
+          "tax": 9
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.3,
+          "value": 77,
+          "royalties": 8,
+          "tax": 6
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.3,
+          "value": 108,
+          "royalties": 11,
+          "tax": 9
+        },
+        {
+          "country": "Philippines",
+          "volume": 0.2,
+          "value": 39,
+          "royalties": 4,
+          "tax": 3
+        },
+        {
+          "country": "Mexico",
+          "volume": 0.1,
+          "value": 43,
+          "royalties": 4,
+          "tax": 3
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 0.1,
+          "value": 20,
+          "royalties": 2,
+          "tax": 2
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "totalVolume": 333.8,
+      "totalValue": 79291,
+      "totalRoyalties": 7929,
+      "totalCorporateTax": 6343,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 110.4,
+          "value": 27620,
+          "royalties": 2762,
+          "tax": 2210
+        },
+        {
+          "country": "China",
+          "volume": 84,
+          "value": 12736,
+          "royalties": 1274,
+          "tax": 1019
+        },
+        {
+          "country": "India",
+          "volume": 41.8,
+          "value": 13496,
+          "royalties": 1350,
+          "tax": 1080
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 32.1,
+          "value": 8244,
+          "royalties": 824,
+          "tax": 660
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 17.8,
+          "value": 3849,
+          "royalties": 385,
+          "tax": 308
+        },
+        {
+          "country": "Netherlands",
+          "volume": 11,
+          "value": 3534,
+          "royalties": 353,
+          "tax": 283
+        },
+        {
+          "country": "Malaysia",
+          "volume": 7.4,
+          "value": 1569,
+          "royalties": 157,
+          "tax": 126
+        },
+        {
+          "country": "Indonesia",
+          "volume": 6.7,
+          "value": 2068,
+          "royalties": 207,
+          "tax": 165
+        },
+        {
+          "country": "Brazil",
+          "volume": 4.7,
+          "value": 1372,
+          "royalties": 137,
+          "tax": 110
+        },
+        {
+          "country": "Thailand",
+          "volume": 4.1,
+          "value": 565,
+          "royalties": 56,
+          "tax": 45
+        },
+        {
+          "country": "France",
+          "volume": 2.9,
+          "value": 931,
+          "royalties": 93,
+          "tax": 74
+        },
+        {
+          "country": "Türkiye",
+          "volume": 2.2,
+          "value": 798,
+          "royalties": 80,
+          "tax": 64
+        },
+        {
+          "country": "Belgium",
+          "volume": 1.6,
+          "value": 525,
+          "royalties": 52,
+          "tax": 42
+        },
+        {
+          "country": "Spain",
+          "volume": 1.1,
+          "value": 328,
+          "royalties": 33,
+          "tax": 26
+        },
+        {
+          "country": "Germany",
+          "volume": 1,
+          "value": 270,
+          "royalties": 27,
+          "tax": 22
+        },
+        {
+          "country": "Sweden",
+          "volume": 1,
+          "value": 312,
+          "royalties": 31,
+          "tax": 25
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 0.7,
+          "value": 98,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "Poland",
+          "volume": 0.6,
+          "value": 238,
+          "royalties": 24,
+          "tax": 19
+        },
+        {
+          "country": "Chile",
+          "volume": 0.5,
+          "value": 102,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "South Africa",
+          "volume": 0.5,
+          "value": 156,
+          "royalties": 16,
+          "tax": 12
+        },
+        {
+          "country": "Ukraine",
+          "volume": 0.4,
+          "value": 105,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 0.3,
+          "value": 66,
+          "royalties": 7,
+          "tax": 5
+        },
+        {
+          "country": "Italy",
+          "volume": 0.3,
+          "value": 75,
+          "royalties": 7,
+          "tax": 6
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.3,
+          "value": 100,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 0.3,
+          "value": 101,
+          "royalties": 10,
+          "tax": 8
+        },
+        {
+          "country": "Singapore",
+          "volume": 0.1,
+          "value": 26,
+          "royalties": 3,
+          "tax": 2
+        },
+        {
+          "country": "Philippines",
+          "volume": 0.1,
+          "value": 7,
+          "royalties": 1,
+          "tax": 1
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "totalVolume": 328.2,
+      "totalValue": 60539,
+      "totalRoyalties": 6054,
+      "totalCorporateTax": 4843,
+      "destinations": [
+        {
+          "country": "Japan",
+          "volume": 105.2,
+          "value": 20065,
+          "royalties": 2006,
+          "tax": 1605
+        },
+        {
+          "country": "China",
+          "volume": 75.7,
+          "value": 9697,
+          "royalties": 970,
+          "tax": 776
+        },
+        {
+          "country": "India",
+          "volume": 43.1,
+          "value": 10649,
+          "royalties": 1065,
+          "tax": 852
+        },
+        {
+          "country": "Rep. of Korea",
+          "volume": 34.2,
+          "value": 6698,
+          "royalties": 670,
+          "tax": 536
+        },
+        {
+          "country": "Viet Nam",
+          "volume": 22.4,
+          "value": 3689,
+          "royalties": 369,
+          "tax": 295
+        },
+        {
+          "country": "Netherlands",
+          "volume": 9.2,
+          "value": 2283,
+          "royalties": 228,
+          "tax": 183
+        },
+        {
+          "country": "Malaysia",
+          "volume": 7.6,
+          "value": 1253,
+          "royalties": 125,
+          "tax": 100
+        },
+        {
+          "country": "Indonesia",
+          "volume": 6.3,
+          "value": 1322,
+          "royalties": 132,
+          "tax": 106
+        },
+        {
+          "country": "Brazil",
+          "volume": 4.5,
+          "value": 1029,
+          "royalties": 103,
+          "tax": 82
+        },
+        {
+          "country": "Thailand",
+          "volume": 4,
+          "value": 547,
+          "royalties": 55,
+          "tax": 44
+        },
+        {
+          "country": "China, Hong Kong SAR",
+          "volume": 3.4,
+          "value": 389,
+          "royalties": 39,
+          "tax": 31
+        },
+        {
+          "country": "France",
+          "volume": 2.4,
+          "value": 580,
+          "royalties": 58,
+          "tax": 46
+        },
+        {
+          "country": "Türkiye",
+          "volume": 1.4,
+          "value": 384,
+          "royalties": 38,
+          "tax": 31
+        },
+        {
+          "country": "Germany",
+          "volume": 1.4,
+          "value": 338,
+          "royalties": 34,
+          "tax": 27
+        },
+        {
+          "country": "Ukraine",
+          "volume": 1.3,
+          "value": 257,
+          "royalties": 26,
+          "tax": 21
+        },
+        {
+          "country": "Belgium",
+          "volume": 1.2,
+          "value": 313,
+          "royalties": 31,
+          "tax": 25
+        },
+        {
+          "country": "Singapore",
+          "volume": 1.2,
+          "value": 197,
+          "royalties": 20,
+          "tax": 16
+        },
+        {
+          "country": "Sweden",
+          "volume": 1,
+          "value": 272,
+          "royalties": 27,
+          "tax": 22
+        },
+        {
+          "country": "Spain",
+          "volume": 1,
+          "value": 237,
+          "royalties": 24,
+          "tax": 19
+        },
+        {
+          "country": "Argentina",
+          "volume": 0.4,
+          "value": 95,
+          "royalties": 9,
+          "tax": 8
+        },
+        {
+          "country": "Chile",
+          "volume": 0.3,
+          "value": 42,
+          "royalties": 4,
+          "tax": 3
+        },
+        {
+          "country": "New Caledonia",
+          "volume": 0.3,
+          "value": 46,
+          "royalties": 5,
+          "tax": 4
+        },
+        {
+          "country": "Poland",
+          "volume": 0.2,
+          "value": 58,
+          "royalties": 6,
+          "tax": 5
+        },
+        {
+          "country": "South Africa",
+          "volume": 0.2,
+          "value": 62,
+          "royalties": 6,
+          "tax": 5
+        },
+        {
+          "country": "Italy",
+          "volume": 0.2,
+          "value": 26,
+          "royalties": 3,
+          "tax": 2
+        },
+        {
+          "country": "United Kingdom",
+          "volume": 0.1,
+          "value": 12,
+          "royalties": 1,
+          "tax": 1
+        }
+      ]
+    }
+  ]
+}

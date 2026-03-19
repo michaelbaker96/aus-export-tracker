@@ -4,6 +4,7 @@
 export const RESOURCE_COLORS: Record<string, string> = {
   lng: '#00bfff',
   'iron-ore': '#ff8c00',
+  coal: '#f59e0b',
 };
 
 export function hexToRgb(hex: string): [number, number, number] {

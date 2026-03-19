@@ -1,5 +1,5 @@
 // Resource types supported by the app
-export type ResourceType = "lng" | "iron-ore";
+export type ResourceType = "lng" | "iron-ore" | "coal";
 
 // Arc data contract — consumed by MapView, ArcLayer, ArcTooltip, SidePanel
 // One record per trade route (Australia -> destination country) for the latest year.

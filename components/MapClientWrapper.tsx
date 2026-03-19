@@ -33,8 +33,9 @@ export default function MapClientWrapper() {
     Promise.all([
       fetch('/data/lng.json').then((r) => r.json()) as Promise<ResourceData>,
       fetch('/data/iron-ore.json').then((r) => r.json()) as Promise<ResourceData>,
-    ]).then(([lng, ironOre]) => {
-      const datasets = [lng, ironOre];
+      fetch('/data/coal.json').then((r) => r.json()) as Promise<ResourceData>,
+    ]).then(([lng, ironOre, coal]) => {
+      const datasets = [lng, ironOre, coal];
       const meta = datasets.map((d) => ({
         resourceType: d.resource,
         displayName: d.displayName,

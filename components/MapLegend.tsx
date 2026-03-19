@@ -3,6 +3,7 @@ import Link from 'next/link';
 const RESOURCES = [
   { label: 'LNG', color: '#00bfff', href: '/resources/lng' },
   { label: 'Iron Ore', color: '#ff8c00', href: '/resources/iron-ore' },
+  { label: 'Coal', color: '#f59e0b', href: '/resources/coal' },
 ];
 
 export default function MapLegend() {
