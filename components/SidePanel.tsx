@@ -6,6 +6,7 @@ import { RESOURCE_COLORS } from '@/lib/resource-config';
 
 interface SidePanelProps {
   arc: ArcData;
+  yearLabel: string;
   onClose: () => void;
 }
 
@@ -47,7 +48,7 @@ function Row({ label, value, sub }: { label: string; value: string; sub?: string
   );
 }
 
-export default function SidePanel({ arc, onClose }: SidePanelProps) {
+export default function SidePanel({ arc, yearLabel, onClose }: SidePanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const accent = RESOURCE_COLORS[arc.resourceType] ?? '#e2e5eb';
 
@@ -97,6 +98,7 @@ export default function SidePanel({ arc, onClose }: SidePanelProps) {
           <div className="font-headline text-xl font-bold text-on-surface leading-tight">
             → {arc.destinationCountry}
           </div>
+          <div className="font-body text-on-surface-variant/60 text-xs mt-1">{yearLabel}</div>
         </div>
         <button
           onClick={onClose}

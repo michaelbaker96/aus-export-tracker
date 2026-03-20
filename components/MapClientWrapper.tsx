@@ -163,7 +163,11 @@ export default function MapClientWrapper() {
         <ArcTooltip arc={hover.arc} x={hover.x} y={hover.y} />
       )}
       {selectedArc && (
-        <SidePanel arc={selectedArc} onClose={() => setSelectedArc(null)} />
+        <SidePanel
+          arc={selectedArc}
+          yearLabel={startYear === endYear ? `${startYear}` : `${startYear} – ${endYear}`}
+          onClose={() => setSelectedArc(null)}
+        />
       )}
       <MapLegend />
       <div style={{ position: 'absolute', top: 52, left: 16, zIndex: 10 }}>
