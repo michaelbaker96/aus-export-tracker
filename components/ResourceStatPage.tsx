@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
+import * as d3 from 'd3';
 import type { ResourceData } from '@/types';
 
 const COUNTRY_COLORS = ['#f97316', '#a855f7', '#ec4899', '#14b8a6', '#eab308', '#84cc16'];
@@ -160,6 +161,245 @@ function SankeyDiagram({
   );
 }
 
+function TrendChart({
+  data,
+  unit,
+}: {
+  data: ResourceData;
+  unit: string;
+}) {
+  const W = 760;
+  const H = 280;
+  const MARGIN = { top: 20, right: 120, bottom: 30, left: 60 };
+  const INNER_W = W - MARGIN.left - MARGIN.right;
+  const INNER_H = H - MARGIN.top - MARGIN.bottom;
+
+  const [hovered, setHovered] = useState<{
+    country: string;
+    year: number;
+    value: number;
+    x: number;
+    y: number;
+    color: string;
+  } | null>(null);
+
+  const { chartData, countries } = useMemo(() => {
+    // 1. Identify top 5 countries by total volume
+    const countryTotals: Record<string, number> = {};
+    for (const yr of data.years) {
+      for (const d of yr.destinations) {
+        countryTotals[d.country] = (countryTotals[d.country] ?? 0) + d.volume;
+      }
+    }
+    const topCountries = Object.entries(countryTotals)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([name]) => name);
+
+    // 2. Format time-series data
+    const sortedYears = [...data.years].sort((a, b) => a.year - b.year);
+    const series = sortedYears.map(yr => ({
+      year: yr.year,
+      values: Object.fromEntries(
+        topCountries.map(c => [
+          c, 
+          yr.destinations.find(d => d.country === c)?.volume ?? 0
+        ])
+      )
+    }));
+
+    return { chartData: series, countries: topCountries };
+  }, [data.years]);
+
+  if (chartData.length === 0) return null;
+
+  const xScale = d3.scaleLinear()
+    .domain(d3.extent(chartData, d => d.year) as [number, number])
+    .range([0, INNER_W]);
+
+  const maxY = d3.max(chartData, d => d3.max(Object.values(d.values))) ?? 0;
+  const yScale = d3.scaleLinear()
+    .domain([0, maxY * 1.1]) // +10% headroom
+    .range([INNER_H, 0]);
+
+  const lineGen = d3.line<{ year: number; value: number }>()
+    .x(d => xScale(d.year))
+    .y(d => yScale(d.value))
+    .curve(d3.curveMonotoneX);
+
+  return (
+    <div className="relative">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        style={{ width: '100%', height: 'auto', overflow: 'visible' }}
+      >
+        <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
+          {/* Grid lines */}
+          {yScale.ticks(5).map((tick, i) => (
+            <g key={i} transform={`translate(0, ${yScale(tick)})`}>
+              <line x2={INNER_W} stroke="rgba(226, 229, 235, 0.05)" />
+              <text
+                x="-10"
+                dy="0.32em"
+                textAnchor="end"
+                fill="rgba(226, 229, 235, 0.4)"
+                fontSize="10"
+              >
+                {tick}
+              </text>
+            </g>
+          ))}
+
+          {/* X Axis ticks */}
+          {xScale.ticks(chartData.length).map((tick, i) => (
+            <g key={i} transform={`translate(${xScale(tick)}, ${INNER_H})`}>
+              <text
+                y="20"
+                textAnchor="middle"
+                fill="rgba(226, 229, 235, 0.4)"
+                fontSize="10"
+              >
+                {tick}
+              </text>
+            </g>
+          ))}
+
+          {/* Lines */}
+          {countries.map((country, i) => {
+            const color = COUNTRY_COLORS[i % COUNTRY_COLORS.length];
+            const countryData = chartData.map(d => ({ year: d.year, value: d.values[country] }));
+            return (
+              <path
+                key={country}
+                d={lineGen(countryData) ?? ''}
+                fill="none"
+                stroke={color}
+                strokeWidth="2.5"
+                strokeOpacity={hovered && hovered.country !== country ? "0.2" : "0.8"}
+                className="transition-opacity duration-200"
+              />
+            );
+          })}
+
+          {/* Points (Interaction Area) */}
+          {countries.map((country, i) => {
+            const color = COUNTRY_COLORS[i % COUNTRY_COLORS.length];
+            return chartData.map(d => {
+              const x = xScale(d.year);
+              const y = yScale(d.values[country]);
+              const isHovered = hovered?.country === country && hovered?.year === d.year;
+              const isDimmed = hovered && hovered.country !== country;
+
+              return (
+                <g key={`${country}-${d.year}`} style={{ cursor: 'pointer' }}>
+                  {/* Visual Circle (Always Visible) */}
+                  <circle
+                    cx={x}
+                    cy={y}
+                    r={isHovered ? 5 : 3}
+                    fill={color}
+                    stroke={isHovered ? "white" : "none"}
+                    strokeWidth="1.5"
+                    style={{ 
+                      opacity: isDimmed ? 0.2 : 1,
+                      transition: 'all 0.2s ease'
+                    }}
+                  />
+                  {/* Invisible Hit Area (Larger for easier hovering) */}
+                  <circle
+                    cx={x}
+                    cy={y}
+                    r={10}
+                    fill="transparent"
+                    onMouseEnter={() => setHovered({
+                      country,
+                      year: d.year,
+                      value: d.values[country],
+                      x: x + MARGIN.left,
+                      y: y + MARGIN.top,
+                      color
+                    })}
+                    onMouseLeave={() => setHovered(null)}
+                  />
+                </g>
+              );
+            });
+          })}
+
+          {/* Legend */}
+          {countries.map((country, i) => {
+            const color = COUNTRY_COLORS[i % COUNTRY_COLORS.length];
+            const lastPoint = chartData[chartData.length - 1];
+            const yPos = yScale(lastPoint.values[country]);
+            return (
+              <g 
+                key={country} 
+                transform={`translate(${INNER_W + 10}, ${yPos})`}
+                className="transition-opacity duration-200"
+                style={{ opacity: hovered && hovered.country !== country ? 0.3 : 1 }}
+              >
+                <circle r="3" fill={color} />
+                <text
+                  x="8"
+                  dy="0.32em"
+                  fill="rgba(226, 229, 235, 0.7)"
+                  fontSize="10"
+                  fontWeight="500"
+                >
+                  {country}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* Y Axis Label */}
+          <text
+            transform="rotate(-90)"
+            y="-45"
+            x={-INNER_H / 2}
+            textAnchor="middle"
+            fill="rgba(226, 229, 235, 0.3)"
+            fontSize="10"
+            letterSpacing="0.05em"
+            className="uppercase"
+          >
+            Volume ({unit})
+          </text>
+        </g>
+      </svg>
+
+      {/* Tooltip */}
+      {hovered && (
+        <div
+          className="absolute pointer-events-none bg-surface-container-high/95 backdrop-blur-md border border-white/10 rounded px-3 py-2 shadow-xl z-50 transition-all duration-150"
+          style={{
+            left: hovered.x,
+            top: hovered.y,
+            transform: `translate(-50%, -120%)`
+          }}
+        >
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-2 h-2 rounded-full" style={{ background: hovered.color }} />
+            <span className="font-headline font-bold text-xs text-on-surface uppercase tracking-wider">
+              {hovered.country}
+            </span>
+          </div>
+          <div className="flex justify-between items-baseline gap-4">
+            <span className="font-body text-[11px] text-on-surface-variant/60">{hovered.year}</span>
+            <span className="font-body font-bold text-sm text-on-surface">
+              {fmt(hovered.value)} {unit}
+            </span>
+          </div>
+          {/* Arrow */}
+          <div 
+            className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-surface-container-high/95"
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ResourceStatPage({
   data,
   accent,
@@ -302,6 +542,17 @@ export default function ResourceStatPage({
             Total volume ({unit}) from Australia to each destination, {yearLabel}
           </p>
           <SankeyDiagram data={data} rangeYears={rangeYears} accent={accent} />
+        </div>
+
+        {/* Historical Trend Chart */}
+        <div className="bg-surface-container rounded-lg p-6 mb-10">
+          <h2 className="font-headline text-lg font-bold text-on-surface m-0 mb-1">
+            Historical Export Trends
+          </h2>
+          <p className="font-body text-on-surface-variant/50 text-[13px] m-0 mb-7">
+            Annual export volume ({unit}) to top 5 destination countries over time
+          </p>
+          <TrendChart data={data} unit={unit} />
         </div>
 
         {/* Data sources */}
