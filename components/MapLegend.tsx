@@ -9,7 +9,7 @@ const RESOURCES = [
 
 export default function MapLegend() {
   return (
-    <div className="absolute bottom-8 left-4 bg-surface-container rounded-lg p-3 px-4 flex flex-col gap-2.5 z-10">
+    <div className="absolute bottom-8 left-4 bg-surface-container border border-outline/20 rounded-lg p-3 px-4 flex flex-col gap-2.5 z-10">
       <div className="font-body text-[10px] uppercase tracking-widest text-on-surface-variant/60 mb-0.5">
         Resources
       </div>
