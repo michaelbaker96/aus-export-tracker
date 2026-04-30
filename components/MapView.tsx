@@ -174,7 +174,15 @@ export default function MapView({ arcs = [], onArcHover, onArcClick }: MapViewPr
       <Map
         mapboxAccessToken={MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/dark-v11"
-        projection="mercator"
+        projection="globe"
+        fog={{
+          "range": [0.5, 10],
+          "color": "#0a0a0a",
+          "high-color": "#245cdf",
+          "space-color": "#000000",
+          "horizon-blend": 0.1,
+          "star-intensity": 0.8
+        }}
         reuseMaps
       />
     </DeckGL>
