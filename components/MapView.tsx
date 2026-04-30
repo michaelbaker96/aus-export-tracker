@@ -21,7 +21,7 @@ const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const WORLD_VIEW_STATE = {
   longitude: 100,
   latitude: -15,
-  zoom: 1.8,
+  zoom: 1,
   pitch: 0,
   bearing: 0,
 };
@@ -33,8 +33,8 @@ const AUSTRALIA_VIEW_STATE = {
   zoom: 3.6,
   pitch: 0,
   bearing: 0,
-  transitionDuration: 3200,
-  transitionInterpolator: new FlyToInterpolator({ speed: 1.4 }),
+  transitionDuration: 3500,
+  transitionInterpolator: new FlyToInterpolator({ speed: 1.2 }),
 };
 
 function buildVolumeRanges(arcs: ArcData[]): Record<string, { min: number; max: number }> {
