@@ -1,3 +1,7 @@
+/**
+ * Ahoy! This be the Year Range Bar, the chronometer of our voyage.
+ * Slide the markers to see how the bounty flowed in years past or present.
+ */
 'use client';
 
 interface YearRangeBarProps {
@@ -31,7 +35,7 @@ export default function YearRangeBar({
   }
 
   return (
-    <div data-no-dismiss className="absolute top-0 left-0 right-0 z-[150] bg-surface/90 backdrop-blur-xl flex items-center gap-4 px-5 py-2.5">
+    <div data-no-dismiss className="relative z-[150] bg-surface-container flex items-center gap-4 px-6 py-3 border-b border-outline/20">
       <div className="font-body text-on-surface-variant text-[10px] uppercase tracking-widest shrink-0">
         Year range
       </div>
@@ -41,7 +45,7 @@ export default function YearRangeBar({
         <div className="absolute left-0 right-0 h-[3px] rounded-sm bg-on-surface/10 pointer-events-none" />
         {/* Active range fill */}
         <div
-          className="absolute h-[3px] rounded-sm bg-on-surface/45 pointer-events-none"
+          className="absolute h-[3px] rounded-sm bg-primary pointer-events-none"
           style={{ left: `${startPct}%`, right: `${100 - endPct}%` }}
         />
 
@@ -104,8 +108,8 @@ export default function YearRangeBar({
           width: 16px;
           height: 16px;
           border-radius: 50%;
-          background: #00daf3;
-          border: 2px solid rgba(0, 218, 243, 0.5);
+          background: var(--color-primary);
+          border: 2px solid rgba(14, 165, 233, 0.5);
           cursor: grab;
           box-shadow: 0 1px 6px rgba(0,0,0,0.5);
           margin-top: -7px;
@@ -122,8 +126,8 @@ export default function YearRangeBar({
           width: 16px;
           height: 16px;
           border-radius: 50%;
-          background: #00daf3;
-          border: 2px solid rgba(0, 218, 243, 0.5);
+          background: var(--color-primary);
+          border: 2px solid rgba(14, 165, 233, 0.5);
           cursor: grab;
           box-shadow: 0 1px 6px rgba(0,0,0,0.5);
         }
@@ -131,3 +135,4 @@ export default function YearRangeBar({
     </div>
   );
 }
+

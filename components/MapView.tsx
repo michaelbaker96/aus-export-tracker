@@ -1,5 +1,10 @@
+/* 
+ * 🏴‍☠️ AHOY! This be the MapView, the grand chart of the high seas!
+ * It plots the treasure routes of LNG, Coal, and Iron Ore across the world's oceans.
+ */
 'use client';
 
+import '@luma.gl/webgl';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import DeckGL from '@deck.gl/react';
 import { ArcLayer } from '@deck.gl/layers';

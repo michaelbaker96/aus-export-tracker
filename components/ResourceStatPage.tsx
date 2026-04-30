@@ -371,7 +371,7 @@ function TrendChart({
       {/* Tooltip */}
       {hovered && (
         <div
-          className="absolute pointer-events-none bg-surface-container-high/95 backdrop-blur-md border border-white/10 rounded px-3 py-2 shadow-xl z-50 transition-all duration-150"
+          className="absolute pointer-events-none bg-surface-container-high border border-outline/20 rounded px-3 py-2 shadow-xl z-50 transition-all duration-150"
           style={{
             left: hovered.x,
             top: hovered.y,
@@ -392,7 +392,7 @@ function TrendChart({
           </div>
           {/* Arrow */}
           <div 
-            className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-surface-container-high/95"
+            className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-surface-container-high"
           />
         </div>
       )}

@@ -9,6 +9,7 @@
   --color-surface: #0f172a;
   --color-surface-container: #1e293b;
   --color-surface-container-high: #334155;
+  --color-surface-container-highest: #475569;
 
   /* Content (Slate 50 -> 400) */
   --color-on-surface: #f8fafc;
@@ -32,10 +33,21 @@
   --radius-full: 0.75rem;
 }
 
-.glass-panel {
-  background: rgba(29, 32, 38, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-outline);
+    border-radius: 10px;
+    opacity: 0.3;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-on-surface-variant);
+  }
 }
 
 * {
@@ -51,3 +63,4 @@ body {
   font-family: var(--font-body);
   overflow: hidden;
 }
+

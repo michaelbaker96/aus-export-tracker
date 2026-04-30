@@ -1,3 +1,8 @@
+/**
+ * Ahoy! Welcome to the Map Deck!
+ * This be the main navigator where we frame the charts and the ledgers.
+ * We've split the view: filters to the port side, and the map and booty details to the starboard.
+ */
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -7,7 +12,7 @@ import type { ArcData, ResourceData } from '@/types';
 import { RESOURCE_COLORS } from '@/lib/resource-config';
 import { computeArcsForRange } from '@/lib/computeArcsForRange';
 import ArcTooltip from './ArcTooltip';
-import SidePanel from './SidePanel';
+import DetailsPane from './DetailsPane';
 import MapLegend from './MapLegend';
 import TradeFiltersPanel, { type ResourceEntry, type CountryEntry } from './TradeFiltersPanel';
 import YearRangeBar from './YearRangeBar';
@@ -146,31 +151,9 @@ export default function MapClientWrapper() {
   }, []);
 
   return (
-    <>
-      <YearRangeBar
-        minYear={globalMinYear}
-        maxYear={globalMaxYear}
-        startYear={startYear}
-        endYear={endYear}
-        onRangeChange={handleRangeChange}
-      />
-      <MapView
-        arcs={filteredArcs}
-        onArcHover={handleArcHover}
-        onArcClick={handleArcClick}
-      />
-      {hover && (
-        <ArcTooltip arc={hover.arc} x={hover.x} y={hover.y} />
-      )}
-      {selectedArc && (
-        <SidePanel
-          arc={selectedArc}
-          yearLabel={startYear === endYear ? `${startYear}` : `${startYear} – ${endYear}`}
-          onClose={() => setSelectedArc(null)}
-        />
-      )}
-      <MapLegend />
-      <div style={{ position: 'absolute', top: 52, left: 16, zIndex: 10 }}>
+    <div className="flex-1 flex gap-4 overflow-hidden">
+      {/* Sidebar Filters */}
+      <aside className="w-[320px] shrink-0 flex flex-col gap-4">
         <TradeFiltersPanel
           resources={resources}
           countries={countries}
@@ -181,7 +164,41 @@ export default function MapClientWrapper() {
           onSelectAllCountries={handleSelectAllCountries}
           onDeselectAllCountries={handleDeselectAllCountries}
         />
+      </aside>
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col gap-4 min-w-0">
+        {/* Map Card */}
+        <section className="flex-1 relative bg-surface-container rounded-2xl border border-outline/20 shadow-2xl overflow-hidden flex flex-col">
+          <YearRangeBar
+            minYear={globalMinYear}
+            maxYear={globalMaxYear}
+            startYear={startYear}
+            endYear={endYear}
+            onRangeChange={handleRangeChange}
+          />
+          <div className="flex-1 relative">
+            <MapView
+              arcs={filteredArcs}
+              onArcHover={handleArcHover}
+              onArcClick={handleArcClick}
+            />
+            {hover && (
+              <ArcTooltip arc={hover.arc} x={hover.x} y={hover.y} />
+            )}
+            <MapLegend />
+          </div>
+        </section>
+
+        {/* Details Area */}
+        <section className="h-64 shrink-0 bg-surface-container rounded-2xl border border-outline/20 overflow-hidden shadow-2xl">
+          <DetailsPane
+            arc={selectedArc}
+            yearLabel={startYear === endYear ? `${startYear}` : `${startYear} – ${endYear}`}
+          />
+        </section>
       </div>
-    </>
+    </div>
   );
 }
+
