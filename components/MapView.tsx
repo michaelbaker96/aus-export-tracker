@@ -136,10 +136,10 @@ export default function MapView({ arcs = [], onArcHover, onArcClick }: MapViewPr
           Math.round(140 + 115 * t),
         ] as [number, number, number, number];
       },
-      // Width: 1–6 based on normalised volume
-      getWidth: (d) => 1 + normaliseVolume(d) * 5,
-      widthMinPixels: 1,
-      widthMaxPixels: 8,
+      // Width: 1–5 based on normalised volume
+      getWidth: (d) => 1 + normaliseVolume(d) * 4,
+      widthMinPixels: 0.5,
+      widthMaxPixels: 6,
       pickable: true,
       autoHighlight: true,
       highlightColor: [255, 255, 255, 180],
