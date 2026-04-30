@@ -1,3 +1,7 @@
+/**
+ * Ahoy! This be the grand architecture of our vessel.
+ * It provides the hull and the rigging (fonts and metadata) for the entire fleet.
+ */
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -18,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" style={{ height: "100%" }}>
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -27,7 +31,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body style={{ height: "100%", margin: 0 }}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
