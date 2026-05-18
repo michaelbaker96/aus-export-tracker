@@ -25,6 +25,12 @@
   /* Typography */
   --font-headline: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
+  --font-telemetry: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* HUD / telemetry instrumentation accents */
+  --color-hud: #5ff2e4;
+  --color-hud-dim: #1d6f6a;
+  --color-hud-warn: #ffb454;
 
   /* Border radius */
   --radius-DEFAULT: 0.125rem;
@@ -52,6 +58,22 @@
 
 * {
   box-sizing: border-box;
+}
+
+/* Telemetry HUD — slow vertical scan sweep + readout flicker */
+@keyframes hud-scan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  8% { opacity: 0.5; }
+  92% { opacity: 0.5; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+@keyframes hud-blink {
+  0%, 64%, 100% { opacity: 1; }
+  72%, 92% { opacity: 0.25; }
+}
+@keyframes hud-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 html,
