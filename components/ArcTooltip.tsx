@@ -31,7 +31,7 @@ export default function ArcTooltip({ arc, x, y }: ArcTooltipProps) {
 
   return (
     <div
-      className="glass-panel rounded-lg outline outline-1 outline-outline-variant/15 pointer-events-none min-w-[200px] shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
+      className="bg-surface-container-high border border-outline/20 rounded-lg pointer-events-none min-w-[200px] shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
       style={{
         position: 'fixed',
         left: x + 16,

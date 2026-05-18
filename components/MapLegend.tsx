@@ -9,9 +9,15 @@ const RESOURCES = [
 
 export default function MapLegend() {
   return (
-    <div className="absolute bottom-8 left-4 bg-surface-container rounded-lg p-3 px-4 flex flex-col gap-2.5 z-10">
-      <div className="font-body text-[10px] uppercase tracking-widest text-on-surface-variant/60 mb-0.5">
-        Resources
+    <div
+      className="absolute bottom-7 left-7 z-30 flex flex-col gap-2 border border-[var(--color-hud-dim)] bg-surface/70 backdrop-blur-sm px-4 py-3"
+      style={{ fontFamily: 'var(--font-telemetry)' }}
+    >
+      <div
+        className="text-[10px] uppercase tracking-[0.28em] pb-1.5 border-b border-[var(--color-hud-dim)]/60"
+        style={{ color: 'var(--color-hud)' }}
+      >
+        Cargo channels
       </div>
       {RESOURCES.map(({ label, key, href }) => {
         const color = RESOURCE_COLORS[key];
@@ -19,11 +25,11 @@ export default function MapLegend() {
           <Link
             key={label}
             href={href}
-            className="flex items-center gap-2 no-underline font-body text-sm font-medium text-on-surface hover:text-primary transition-colors"
+            className="group flex items-center gap-2.5 no-underline text-[12px] tracking-[0.14em] uppercase text-on-surface transition-colors hover:text-[var(--color-hud)]"
           >
             <span
-              className="w-2.5 h-2.5 rounded-full shrink-0"
-              style={{ background: color, boxShadow: `0 0 6px ${color}88` }}
+              className="w-3 h-px shrink-0 transition-all group-hover:w-5"
+              style={{ background: color, boxShadow: `0 0 8px ${color}` }}
             />
             {label}
           </Link>
