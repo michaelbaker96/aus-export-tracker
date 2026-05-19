@@ -8,7 +8,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import type { PickingInfo } from 'deck.gl';
-import type { ArcData, ResourceData } from '@/types';
+import type { ArcData, ResourceData, AnnualRecord } from '@/types';
 import { RESOURCE_COLORS } from '@/lib/resource-config';
 import { computeArcsForRange } from '@/lib/computeArcsForRange';
 import ArcTooltip from './ArcTooltip';
@@ -26,6 +26,23 @@ interface HoverState {
   y: number;
 }
 
+interface FoundResource {
+  resource: string;
+  displayName: string;
+  units: { volume: string; value: string };
+  years: { year: number; country: string; volume: number; value: number; royalties: number; tax: number }[];
+  arc: ArcData;
+}
+
+export interface CountryLookupResult {
+  query: string;
+  match: { code: number; name: string; coords?: [number, number] } | null;
+  found?: FoundResource[];
+  notFound?: string[];
+  hasData?: boolean;
+  error?: string;
+}
+
 export default function MapClientWrapper() {
   const [datasets, setDatasets] = useState<ResourceData[]>([]);
   const [resourceMeta, setResourceMeta] = useState<Omit<ResourceEntry, 'active' | 'volume'>[]>([]);
@@ -34,7 +51,7 @@ export default function MapClientWrapper() {
   const [activeCountries, setActiveCountries] = useState<Set<string>>(new Set());
   const [yearRange, setYearRange] = useState<[number, number]>([2014, 2025]);
   const [hover, setHover] = useState<HoverState | null>(null);
-  const [selectedArc, setSelectedArc] = useState<ArcData | null>(null);
+  const [selectedRoute, setSelectedRoute] = useState<{ resourceType: string; country: string } | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -70,12 +87,31 @@ export default function MapClientWrapper() {
     return [Math.min(...allYears), Math.max(...allYears)];
   }, [datasets]);
 
+  const rangeArcs = useMemo(
+    () => computeArcsForRange(datasets, startYear, endYear),
+    [datasets, startYear, endYear],
+  );
+
   const filteredArcs = useMemo(
     () =>
-      computeArcsForRange(datasets, startYear, endYear).filter(
+      rangeArcs.filter(
         (a) => activeResources.has(a.resourceType) && activeCountries.has(a.destinationCountry),
       ),
-    [datasets, startYear, endYear, activeResources, activeCountries],
+    [rangeArcs, activeResources, activeCountries],
+  );
+
+  // Re-derive the selected route's arc from the current year range so the
+  // details pane stays in sync when the year slider moves.
+  const selectedArc = useMemo(
+    () =>
+      selectedRoute
+        ? rangeArcs.find(
+            (a) =>
+              a.resourceType === selectedRoute.resourceType &&
+              a.destinationCountry === selectedRoute.country,
+          ) ?? null
+        : null,
+    [rangeArcs, selectedRoute],
   );
 
   const resourceVolumes = useMemo(() => {
@@ -131,6 +167,69 @@ export default function MapClientWrapper() {
     setActiveCountries(new Set());
   }, []);
 
+  const handleLookupCountry = useCallback(
+    async (query: string): Promise<CountryLookupResult> => {
+      const res = await fetch(`/api/country-search?q=${encodeURIComponent(query)}`);
+      return res.json();
+    },
+    [],
+  );
+
+  const handleAddCountry = useCallback((data: CountryLookupResult) => {
+    if (!data.match || !data.found || data.found.length === 0) return;
+    const name = data.match.name;
+
+    setDatasets((prev) => {
+      const next = prev.map((d) => ({
+        ...d,
+        arcs: [...d.arcs],
+        years: d.years.map((y) => ({ ...y, destinations: [...y.destinations] })),
+      }));
+
+      for (const f of data.found!) {
+        const ds = next.find((d) => d.resource === f.resource);
+        if (!ds) continue;
+
+        ds.arcs = ds.arcs.filter((a) => a.destinationCountry !== name);
+        ds.arcs.push(f.arc);
+
+        const byYear = new Map<number, AnnualRecord>(ds.years.map((y) => [y.year, y]));
+        for (const yc of f.years) {
+          let yr = byYear.get(yc.year);
+          if (!yr) {
+            yr = {
+              year: yc.year,
+              totalVolume: 0,
+              totalValue: 0,
+              totalRoyalties: 0,
+              totalCorporateTax: 0,
+              destinations: [],
+            };
+            ds.years.push(yr);
+            byYear.set(yc.year, yr);
+          }
+          yr.destinations = yr.destinations.filter((dd) => dd.country !== name);
+          yr.destinations.push({
+            country: yc.country,
+            volume: yc.volume,
+            value: yc.value,
+            royalties: yc.royalties,
+            tax: yc.tax,
+          });
+        }
+        ds.years.sort((a, b) => a.year - b.year);
+      }
+      return next;
+    });
+
+    setAllCountries((prev) => (prev.includes(name) ? prev : [...prev, name].sort()));
+    setActiveCountries((prev) => {
+      const nextSet = new Set(prev);
+      nextSet.add(name);
+      return nextSet;
+    });
+  }, []);
+
   const handleArcHover = useCallback((info: PickingInfo<ArcData>) => {
     if (info.object) {
       setHover({ arc: info.object, x: info.x, y: info.y });
@@ -141,7 +240,10 @@ export default function MapClientWrapper() {
 
   const handleArcClick = useCallback((info: PickingInfo<ArcData>) => {
     if (info.object) {
-      setSelectedArc(info.object);
+      setSelectedRoute({
+        resourceType: info.object.resourceType,
+        country: info.object.destinationCountry,
+      });
       setHover(null);
     }
   }, []);
@@ -163,6 +265,8 @@ export default function MapClientWrapper() {
           onDeselectAllResources={handleDeselectAllResources}
           onSelectAllCountries={handleSelectAllCountries}
           onDeselectAllCountries={handleDeselectAllCountries}
+          onLookupCountry={handleLookupCountry}
+          onAddCountry={handleAddCountry}
         />
       </aside>
 
