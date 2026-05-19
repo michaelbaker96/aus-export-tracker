@@ -34,11 +34,21 @@ function fmt(n: number) {
   return n.toLocaleString('en-AU');
 }
 
-function StatCard({ label, value, sub }: { label: string; value: string; sub?: string }) {
+function StatCard({
+  label,
+  value,
+  sub,
+  valueClassName = 'text-lg',
+}: {
+  label: string;
+  value: string;
+  sub?: string;
+  valueClassName?: string;
+}) {
   return (
     <div className="flex-1 min-w-[140px] p-4 bg-surface-container-high rounded-xl border border-outline/10">
       <div className="font-body text-on-surface-variant text-[11px] uppercase tracking-wider mb-1">{label}</div>
-      <div className="font-headline font-bold text-on-surface text-lg">
+      <div className={`font-headline font-bold text-on-surface break-words ${valueClassName}`}>
         {value}
       </div>
       {sub && (
@@ -106,6 +116,7 @@ export default function DetailsPane({ arc, yearLabel }: DetailsPaneProps) {
         <StatCard
           label="Cost basis range"
           value={costRange}
+          valueClassName="text-base leading-tight"
           sub="Estimated from company annual reports"
         />
         <StatCard

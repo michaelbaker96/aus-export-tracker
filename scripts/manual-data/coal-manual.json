@@ -1,0 +1,41 @@
+{
+  "_note": "Manually curated coal fiscal data. Royalties and corporate tax are derived from FOB export value via the rates below (Queensland/NSW coal royalty regime is tiered; a blended effective rate is used). Update annually after reviewing sources.",
+  "_sources": [
+    "Queensland Department of Resources – Coal Royalties",
+    "NSW Treasury – Coal Royalty Revenue",
+    "ATO Tax Transparency Report (large companies, annual)",
+    "Department of Industry, Science and Resources – Resources and Energy Quarterly"
+  ],
+  "_units": {
+    "royaltyRateFOB": "blended effective fraction of FOB export value (state coal royalties)",
+    "corporateTaxRateFOB": "approximate fraction of FOB export value attributable to company tax",
+    "costBasisPerMtMin": "AUD millions per million tonnes — low-cost Bowen/Hunter operations",
+    "costBasisPerMtMax": "AUD millions per million tonnes — higher-cost operations incl. rail and port"
+  },
+
+  "originCoordinates": [149.19, -21.15],
+  "displayName": "Coal",
+
+  "royaltyRateFOB": 0.10,
+  "corporateTaxRateFOB": 0.08,
+
+  "costBasisPerMtMin": 90,
+  "costBasisPerMtMax": 160,
+
+  "usdToAudByYear": {
+    "2014": 1.109,
+    "2015": 1.330,
+    "2016": 1.345,
+    "2017": 1.305,
+    "2018": 1.338,
+    "2019": 1.439,
+    "2020": 1.453,
+    "2021": 1.332,
+    "2022": 1.442,
+    "2023": 1.507,
+    "2024": 1.534,
+    "2025": 1.580
+  },
+
+  "years": {}
+}

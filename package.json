@@ -8,7 +8,8 @@
     "start": "next start",
     "refresh-data": "node scripts/refresh-data.js",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@deck.gl/mapbox": "^9.2.11",

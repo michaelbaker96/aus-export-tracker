@@ -5,6 +5,7 @@
 'use client';
 
 import { useState } from 'react';
+import type { CountryLookupResult } from './MapClientWrapper';
 
 export interface ResourceEntry {
   resourceType: string;
@@ -28,7 +29,16 @@ interface Props {
   onDeselectAllResources: () => void;
   onSelectAllCountries: () => void;
   onDeselectAllCountries: () => void;
+  onLookupCountry: (query: string) => Promise<CountryLookupResult>;
+  onAddCountry: (result: CountryLookupResult) => void;
 }
+
+type LookupState =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'done'; result: CountryLookupResult }
+  | { status: 'added'; name: string }
+  | { status: 'error'; message: string };
 
 function formatVolume(v: number): string {
   if (v >= 1000) return `${(v / 1000).toFixed(1)}k`;
@@ -44,12 +54,33 @@ export default function TradeFiltersPanel({
   onDeselectAllResources,
   onSelectAllCountries,
   onDeselectAllCountries,
+  onLookupCountry,
+  onAddCountry,
 }: Props) {
   const [search, setSearch] = useState('');
+  const [lookup, setLookup] = useState<LookupState>({ status: 'idle' });
 
   const filteredCountries = search
     ? countries.filter((c) => c.name.toLowerCase().includes(search.toLowerCase()))
     : countries;
+
+  const noLocalMatch = search.trim().length >= 2 && filteredCountries.length === 0;
+
+  async function runLookup() {
+    setLookup({ status: 'loading' });
+    try {
+      const result = await onLookupCountry(search.trim());
+      setLookup({ status: 'done', result });
+    } catch {
+      setLookup({ status: 'error', message: 'Lookup failed. Check your connection and try again.' });
+    }
+  }
+
+  function applyResult(result: CountryLookupResult) {
+    onAddCountry(result);
+    setLookup({ status: 'added', name: result.match?.name ?? search.trim() });
+    setSearch('');
+  }
 
   return (
     <div
@@ -137,7 +168,13 @@ export default function TradeFiltersPanel({
         <input
           type="text"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setLookup({ status: 'idle' });
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && noLocalMatch && lookup.status !== 'loading') runLookup();
+          }}
           placeholder="Search destinations..."
           className="w-full bg-surface-container-high rounded-xl px-4 py-2.5 font-body text-xs text-on-surface placeholder:text-on-surface-variant/40 outline-none border border-outline/10 focus:border-primary/30 transition-colors"
         />
@@ -163,6 +200,73 @@ export default function TradeFiltersPanel({
           </button>
         ))}
       </div>
+
+      {/* Add from Comtrade */}
+      {noLocalMatch && (
+        <div data-testid="comtrade-add" className="mb-6 p-4 rounded-xl bg-surface-container-high border border-primary/20 flex flex-col gap-3">
+          {lookup.status === 'idle' && (
+            <>
+              <div className="font-body text-[11px] text-on-surface-variant/70 leading-relaxed">
+                No tracked destination matches{' '}
+                <span className="text-on-surface font-semibold">&ldquo;{search.trim()}&rdquo;</span>. Check UN Comtrade for Australian export data.
+              </div>
+              <button
+                data-testid="comtrade-search-btn"
+                onClick={runLookup}
+                className="w-full py-2.5 rounded-xl bg-primary/15 border border-primary/30 font-body text-xs font-semibold text-primary transition-colors hover:bg-primary/25 cursor-pointer"
+              >
+                Search Comtrade
+              </button>
+            </>
+          )}
+
+          {lookup.status === 'loading' && (
+            <div className="font-body text-xs text-on-surface-variant/60 animate-pulse text-center py-1">
+              Querying Comtrade…
+            </div>
+          )}
+
+          {lookup.status === 'error' && (
+            <div className="font-body text-[11px] text-red-400">{lookup.message}</div>
+          )}
+
+          {lookup.status === 'done' && !lookup.result.match && (
+            <div className="font-body text-[11px] text-on-surface-variant/70">
+              No Comtrade country matched &ldquo;{search.trim()}&rdquo;.
+            </div>
+          )}
+
+          {lookup.status === 'done' && lookup.result.match && !lookup.result.hasData && (
+            <div className="font-body text-[11px] text-on-surface-variant/70">
+              <span className="text-on-surface font-semibold">{lookup.result.match.name}</span> has no Australian export data on Comtrade for the tracked resources.
+            </div>
+          )}
+
+          {lookup.status === 'done' && lookup.result.match && lookup.result.hasData && (
+            <>
+              <div className="font-body text-[11px] text-on-surface-variant/80 leading-relaxed">
+                <span className="text-on-surface font-semibold">{lookup.result.match.name}</span> has Comtrade data for:{' '}
+                <span className="text-primary font-semibold">
+                  {lookup.result.found!.map((f) => f.displayName).join(', ')}
+                </span>
+              </div>
+              <button
+                data-testid="comtrade-add-btn"
+                onClick={() => applyResult(lookup.result)}
+                className="w-full py-2.5 rounded-xl bg-primary font-body text-xs font-semibold text-black transition-opacity hover:opacity-90 cursor-pointer"
+              >
+                Add {lookup.result.match.name} to map
+              </button>
+            </>
+          )}
+
+          {lookup.status === 'added' && (
+            <div data-testid="comtrade-added" className="font-body text-[11px] text-primary">
+              Added <span className="font-semibold">{lookup.name}</span> to the map.
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Export Dataset */}
       <div className="pt-6 border-t border-outline/10">

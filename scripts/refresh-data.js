@@ -28,6 +28,7 @@
 
 const fs   = require("fs");
 const path = require("path");
+const { createResolver } = require("./lib/country-resolver");
 
 // ─── Paths ────────────────────────────────────────────────────────────────────
 
@@ -62,6 +63,14 @@ const RESOURCE_CONFIG = {
     hsCodes:      [{ code: "260111", maxPages: 20 }],
     manualFile:   "iron-ore-manual.json",
     outputFile:   "iron-ore.json",
+    volumeUnit:   "million tonnes (Mt)",
+    convertVolume: (kg) => Math.round(kg * KG_TO_MT * 10) / 10,
+  },
+  coal: {
+    // 2701 = coal; briquettes, ovoids and similar solid fuels from coal.
+    hsCodes:      [{ code: "2701", maxPages: 20 }],
+    manualFile:   "coal-manual.json",
+    outputFile:   "coal.json",
     volumeUnit:   "million tonnes (Mt)",
     convertVolume: (kg) => Math.round(kg * KG_TO_MT * 10) / 10,
   },
@@ -213,9 +222,6 @@ function loadManualData(filename) {
   return JSON.parse(fs.readFileSync(filepath, "utf8"));
 }
 
-function loadCountryCoords() {
-  return JSON.parse(fs.readFileSync(path.join(MANUAL_DIR, "country-coords.json"), "utf8"));
-}
 
 // ─── Merge & build output ────────────────────────────────────────────────────
 
@@ -223,7 +229,7 @@ function loadCountryCoords() {
  * Merge Comtrade country-year data with manual fiscal data to produce
  * a ResourceData-shaped object ready for schema validation and file output.
  */
-function buildResourceData(resourceKey, countryYearMap, manual, countryCoords, comtradeSource) {
+function buildResourceData(resourceKey, countryYearMap, manual, resolveCountry, comtradeNames, comtradeSource) {
   const config       = RESOURCE_CONFIG[resourceKey];
   const years        = [];
   const allYears     = new Set();
@@ -244,6 +250,9 @@ function buildResourceData(resourceKey, countryYearMap, manual, countryCoords, c
     .sort((a, b) => b[1] - a[1])
     .map(([code]) => code);
 
+  // Country name -> [lng, lat], accumulated as destinations are resolved.
+  const coordsByCountry = new Map();
+
   for (const year of [...allYears].sort((a, b) => a - b)) {
     const manualYear  = manual.years?.[String(year)] ?? {};
     const usdToAud    = manual.usdToAudByYear?.[String(year)] ?? 1.45;
@@ -256,18 +265,20 @@ function buildResourceData(resourceKey, countryYearMap, manual, countryCoords, c
       const entry = countryYearMap.get(code)?.get(year);
       if (!entry || (entry.weightKg === 0 && entry.valueUSD === 0)) continue;
 
-      const coordEntry = countryCoords[String(code)];
-      if (!coordEntry) {
-        warn(`No coordinates for partner code ${code} — skipping from destinations`);
+      const resolved = resolveCountry(code, comtradeNames);
+      if (!resolved) {
+        warn(`No coordinates resolvable for partner code ${code} — skipping from destinations`);
         continue;
       }
 
       totalWeightKg += entry.weightKg;
       totalValueUSD += entry.valueUSD;
+      coordsByCountry.set(resolved.name, resolved.coords);
 
       destinations.push({
         _code:    code, // internal — stripped before output
-        country:  coordEntry.name,
+        country:  resolved.name,
+        coords:   resolved.coords,
         volume:   config.convertVolume(entry.weightKg),
         valueUSD: entry.valueUSD, // temporary — converted after totals
       });
@@ -277,7 +288,10 @@ function buildResourceData(resourceKey, countryYearMap, manual, countryCoords, c
 
     // Compute per-destination royalties and tax proportionally from manual totals
     const totalRoyalties    = computeRoyalties(resourceKey, manual, manualYear, totalValueAUD);
-    const totalCorporateTax = manualYear.totalCorporateTaxAUD ?? null;
+    const totalCorporateTax = manualYear.totalCorporateTaxAUD
+      ?? (manual.corporateTaxRateFOB != null
+          ? Math.round(totalValueAUD * manual.corporateTaxRateFOB)
+          : null);
 
     const finalDestinations = destinations.map((d) => {
       const share    = totalValueUSD > 0 ? d.valueUSD / totalValueUSD : 0;
@@ -310,7 +324,7 @@ function buildResourceData(resourceKey, countryYearMap, manual, countryCoords, c
   // Build arcs from latest year
   const latestRecord = years.find((y) => y.year === latestYear);
   const arcs = latestRecord.destinations.map((dest) => {
-    const coordEntry = Object.values(countryCoords).find((c) => c.name === dest.country);
+    const coords = coordsByCountry.get(dest.country) ?? [0, 0];
     const vol  = dest.volume;
     const val  = dest.value;
     const cMin = manual.costBasisPerPJMin  ?? manual.costBasisPerMtMin  ?? 0;
@@ -318,7 +332,7 @@ function buildResourceData(resourceKey, countryYearMap, manual, countryCoords, c
     return {
       resourceType:           resourceKey,
       originCoordinates:      manual.originCoordinates,
-      destinationCoordinates: coordEntry?.coords ?? [0, 0],
+      destinationCoordinates: coords,
       destinationCountry:     dest.country,
       volumeLatestYear:       vol,
       exportValueAUD:         val,
@@ -345,13 +359,13 @@ function buildResourceData(resourceKey, countryYearMap, manual, countryCoords, c
 }
 
 function computeRoyalties(resourceKey, manual, manualYear, totalValueAUD) {
-  if (resourceKey === "iron-ore") {
-    // WA state royalty: fixed rate on FOB value
-    const rate = manual.royaltyRateFOB ?? 0.075;
-    return Math.round(totalValueAUD * rate);
+  // Prefer a manually curated per-year figure when present (LNG).
+  if (manualYear.totalRoyaltiesAUD != null) return manualYear.totalRoyaltiesAUD;
+  // Otherwise derive from a state royalty rate on FOB value (iron ore, coal).
+  if (manual.royaltyRateFOB != null) {
+    return Math.round(totalValueAUD * manual.royaltyRateFOB);
   }
-  // LNG: use manually curated figure
-  return manualYear.totalRoyaltiesAUD ?? null;
+  return null;
 }
 
 function buildSourcesList(resourceKey, comtradeHsCode, manual) {
@@ -431,7 +445,7 @@ async function main() {
   const comtradeNames = {};
   for (const area of refData?.results ?? []) comtradeNames[area.id] = area.text;
 
-  const countryCoords = loadCountryCoords();
+  const { resolveCountry } = createResolver();
 
   const resourcesToRefresh = RESOURCE
     ? [RESOURCE]
@@ -473,7 +487,7 @@ async function main() {
     }
 
     info(`Building ResourceData for ${resourceKey}…`);
-    const resourceData = buildResourceData(resourceKey, countryYearMap, manual, countryCoords, usedHsCode);
+    const resourceData = buildResourceData(resourceKey, countryYearMap, manual, resolveCountry, comtradeNames, usedHsCode);
 
     info(`Validating schema…`);
     const validationErrors = validateResourceData(resourceData);
